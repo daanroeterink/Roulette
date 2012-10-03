@@ -3,22 +3,38 @@ package nl.saxion.tjksoftware.models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Table {
+import nl.saxion.tjksoftware.models.Bet.BetLocation;
 
+public class Table
+{
 	private List<Player> players;
-	private List<Bet> bet;
+	private List<Bet> bets;
 	private int ID;
-	
-	public Table() {
+
+	public Table()
+	{
 		players = new ArrayList<Player>();
-		bet = new ArrayList<Bet>();
+		bets = new ArrayList<Bet>();
 	}
-	
+
 	public boolean addPlayer(Player newPlayer) {
+		if (players != null && newPlayer != null)
+		{
+			if (players.size() < 10)
+			{
+				players.add(newPlayer);
+				return true;
+			}
+			return false;
+		}
 		return false;
 	}
-	
-	public boolean placeBet(Player player, Bet bet) {
+
+	public boolean placeBet(Player player, int ammount, BetLocation betLocation ) {
+		if(players != null && betLocation != null) {
+			player.createBet(ammount, betLocation);
+		}
 		return false;
 	}
+
 }
