@@ -5,52 +5,25 @@
     xmlns="http://java.sun.com/xml/ns/javaee"
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" >
 
-    <display-name>
-Roulette
-    </display-name>
+    <display-name>Roulette    </display-name>
     <welcome-file-list>
-        <welcome-file>
-index.html
-        </welcome-file>
-        <welcome-file>
-index.htm
-        </welcome-file>
-        <welcome-file>
-index.jsp
-        </welcome-file>
-        <welcome-file>
-default.html
-        </welcome-file>
-        <welcome-file>
-default.htm
-        </welcome-file>
-        <welcome-file>
-default.jsp
-        </welcome-file>
+        <welcome-file>index.html        </welcome-file>
+        <welcome-file>index.htm        </welcome-file>
+        <welcome-file>index.jsp        </welcome-file>
+        <welcome-file>default.html        </welcome-file>
+        <welcome-file>default.htm        </welcome-file>
+        <welcome-file>default.jsp        </welcome-file>
     </welcome-file-list>
     <servlet>
-        <servlet-name>
-restSdkService
-        </servlet-name>
-        <servlet-class>
-com.sun.jersey.spi.container.servlet.ServletContainer
-        </servlet-class>
+        <servlet-name>restSdkService        </servlet-name>
+        <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer        </servlet-class>
         <init-param>
-            <param-name>
-com.sun.jersey.config.properties.packages
-            </param-name>
-            <param-value>
-nl.saxion.tjksoftware.api
-            </param-value>
+            <param-name>com.sun.jersey.config.properties.packages            </param-name>
+            <param-value>nl.saxion.tjksoftware.api            </param-value>
         </init-param>
     </servlet>
     <servlet-mapping>
-        <servlet-name>
-restSdkService
-        </servlet-name>
-        <url-pattern>
-/api/*
-        </url-pattern>
+        <servlet-name>restSdkService        </servlet-name>
+        <url-pattern>/api/*        </url-pattern>
     </servlet-mapping>
-
 </web-app>
