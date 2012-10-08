@@ -1,0 +1,22 @@
+@CHARSET "ISO-8859-1";
+HEADER {
+    background-color:#18b9de;
+    color:white;
+    text-align:center;
+    font:bold 40px Calibri,serif;
+    border-radius:30px;
+}
+
+MENU {
+    background-color:#0a9d19;
+    color:white;
+    font:bold 20px Calibri,serif;
+    border-radius:30px;
+    width:300px;
+    float:left;
+}
+#contentDiv {
+    float:left;
+    margin:25px 40px 40px 40px;
+    background-color:rgba(177, 153, 6, 0.58)
+}

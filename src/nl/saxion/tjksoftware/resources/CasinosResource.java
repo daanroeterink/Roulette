@@ -9,6 +9,7 @@ import nl.saxion.tjksoftware.models.Casino;
 
 @Path("/casinos")
 public class CasinosResource {
+	
 	public CasinosResource() {
 		
 	}

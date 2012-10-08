@@ -15,8 +15,6 @@ import nl.saxion.tjksoftware.models.Casino;
 import nl.saxion.tjksoftware.models.Player;
 import nl.saxion.tjksoftware.models.Table;
 
-import static com.wagnerandade.coollection.Coollection.*;
-
 @Path("/table/{id}")
 public class TableResource {
 
@@ -37,7 +35,7 @@ public class TableResource {
 	@Consumes(MediaType.APPLICATION_JSON) 
 	public void AddBet(@PathParam("id")Integer id, Bet bet) {
 		if(id != null) {
-			Player player = from(Casino.getInstance().getPlayers()).where("id", eq(id)).first();
+			Player player = Casino.getInstance().getPlayerWithID(id);
 			if(player != null)
 			player.createBet(bet.getBetAmmount(), bet.getBetLocation());
 			Casino.getInstance().getTableWithID(id);

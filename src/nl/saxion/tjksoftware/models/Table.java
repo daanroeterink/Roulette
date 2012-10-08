@@ -3,9 +3,12 @@ package nl.saxion.tjksoftware.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response.Status;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import nl.saxion.tjksoftware.models.Bet.BetLocation;
+
 
 @XmlRootElement
 public class Table {
@@ -57,7 +60,10 @@ public class Table {
 				players.add(newPlayer);
 				return true;
 			}
-			return false;
+			else
+			{
+				throw new WebApplicationException(Status.NOT_ACCEPTABLE);
+			}
 		}
 		return false;
 	}

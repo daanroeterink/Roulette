@@ -6,7 +6,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Bet {
 	
 	public Bet() {
-		
 	}
 	
 	private Player player;
