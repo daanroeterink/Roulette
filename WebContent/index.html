@@ -4,26 +4,29 @@
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Insert title here</title>
     <link href="style.css" rel="stylesheet" type="text/css">
-    <script type="JavaScript" src="javascript/jquery.js" ></script>
+    <script type="text/javascript" src="javascript/jquery.js" ></script>
     <script>
-        $('#document').ready(new function () {
-            $('#contentDiv').
-        });
+    function login() {
+        var username = $('#username').valueOf();
+        var password = $('#password').valueOf();
+
+         $.post("api/player",{username:username,password:password});
+    }
     </script>
 </head>
 <body>
     <header>The Roulette Casino</header>
-    <menu>
+    <nav>
         <ul>
             <li>Login</li>
             <li>Choose table</li>
             <li>Manage account</li>
         </ul>
-    </menu>
+    </nav>
     <div id="contentDiv">
         <input type="text" id="username"/>
         <input type="text" id="password" />
-        <button onclick="login();">Login</button>
+        <button onclick="login()">Login</button>
     </div>
 </body>
 </html>
