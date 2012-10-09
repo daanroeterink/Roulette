@@ -2,7 +2,6 @@ package nl.saxion.tjksoftware.models;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -15,10 +14,18 @@ public class Player {
 	private double money;
 	private int ID;
 	private String username, password;
-	private UUID accessToken;
+	private String accessToken;
 
 	public Player() {
 		bets = new ArrayList<Bet>();
+	}
+	
+	public String getAccessToken() {
+		return accessToken;
+	}
+
+	public void setAccessToken(String accessToken) {
+		this.accessToken = accessToken;
 	}
 
 	public double getMoney() {
@@ -66,14 +73,29 @@ public class Player {
 		return null;
 	}
 
-	public String getAccessToken() {
-		if (username != null && password != null) {
-			if (accessToken == null) {
-				accessToken = UUID.fromString(username + password);
-				return accessToken.toString();
-			}
+	// public String getAccessToken() {
+	// if (username != null && password != null) {
+	// if (accessToken == null) {
+	// String idString = username + password;
+	// accessToken = UUID.fromString(idString);
+	// return accessToken.toString();
+	// }
+	// }
+	// return null;
+	// }
+
+	public void calculateHashCode() {
+		GethashCode();
+	}
+
+	public String GethashCode() {
+		if (accessToken == null || accessToken == "") {
+			StringBuilder builder = new StringBuilder();
+			builder.append(username);
+			builder.append(password);
+			accessToken = builder.toString().hashCode() + "";
 		}
-		return null;
+		return accessToken;
 	}
 
 	@Override

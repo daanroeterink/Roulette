@@ -84,7 +84,6 @@ public class Casino {
 		throw new WebApplicationException(Status.NOT_FOUND);
 	}
 
-	
 	public boolean addUniquePlayer(Player player) {
 		if (player != null) {
 			for (Player pla : players) {
@@ -96,5 +95,12 @@ public class Casino {
 			return true;
 		}
 		throw new WebApplicationException(Status.BAD_REQUEST);
+	}
+
+	public boolean checkPlayerExistence(Player player) {
+		for (Player p : players)
+			if (p.equals(player))
+				return true;
+		return false;
 	}
 }
