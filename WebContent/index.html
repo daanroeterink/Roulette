@@ -1,32 +1,56 @@
-<!doctype html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Insert title here</title>
     <link href="style.css" rel="stylesheet" type="text/css">
-    <script type="text/javascript" src="javascript/jquery.js" ></script>
+    <script type="text/javascript" src="jquery-1.8.2.min.js"></script>
     <script>
-    function login() {
-        var username = $('#username').valueOf();
-        var password = $('#password').valueOf();
+        $(document).ready(function () {
+            $('#loginButton').click(function () {
+                var uName = $('#username').val();
+                var Password = $('#password').val();
 
-         $.post("api/player",{username:username,password:password});
-    }
+                var player = new Object();
+                player['username'] = uName;
+                player['password'] = Password;
+
+                var jsonString = JSON.stringify(player);
+                alert(jsonString);
+                $.ajax({
+                    type: 'POST',
+                    url: 'api/login',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: jsonString,
+                    success: function (result) {
+                        alert("success");
+                        alert(result.username);
+                        alert(result.password);
+                        alert(result.accesstoken);
+                        
+                    },
+                    error: function (result, ajaxOptions, thrownError) {
+                        alert("Errormessage: " + result.status);
+                        alert(thrownError);
+                    }
+                });
+            });
+        });
     </script>
 </head>
 <body>
     <header>The Roulette Casino</header>
-    <nav>
+    <menu>
         <ul>
             <li>Login</li>
             <li>Choose table</li>
             <li>Manage account</li>
         </ul>
-    </nav>
+    </menu>
     <div id="contentDiv">
-        <input type="text" id="username"/>
+        <input type="text" id="username" />
         <input type="text" id="password" />
-        <button onclick="login()">Login</button>
+        <button id="loginButton">Login</button>
     </div>
 </body>
 </html>

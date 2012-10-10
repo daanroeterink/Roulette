@@ -30,7 +30,6 @@ public class TableResource {
 		throw new WebApplicationException(Status.NOT_FOUND);
 	}
 	
-	
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON) 
 	public void AddBet(@PathParam("id")Integer id, Bet bet) {
@@ -39,7 +38,6 @@ public class TableResource {
 			if(player != null)
 			player.createBet(bet.getBetAmmount(), bet.getBetLocation());
 			Casino.getInstance().getTableWithID(id);
-			
 		}
 	}
 }
