@@ -2,6 +2,7 @@ package nl.saxion.tjksoftware.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -73,29 +74,16 @@ public class Player {
 		return null;
 	}
 
-	// public String getAccessToken() {
-	// if (username != null && password != null) {
-	// if (accessToken == null) {
-	// String idString = username + password;
-	// accessToken = UUID.fromString(idString);
-	// return accessToken.toString();
-	// }
-	// }
-	// return null;
-	// }
-
+	 public String createAccessToken() {
+		 if(accessToken == null || accessToken == "")
+		 {
+			 accessToken = UUID.randomUUID().toString();
+		 }
+		 return accessToken.toString();
+	 }
+	 
 	public void calculateHashCode() {
-		GethashCode();
-	}
-
-	public String GethashCode() {
-		if (accessToken == null || accessToken == "") {
-			StringBuilder builder = new StringBuilder();
-			builder.append(username);
-			builder.append(password);
-			accessToken = builder.toString().hashCode() + "";
-		}
-		return accessToken;
+		createAccessToken();
 	}
 
 	@Override

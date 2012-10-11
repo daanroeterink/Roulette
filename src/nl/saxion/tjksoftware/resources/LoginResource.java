@@ -17,14 +17,12 @@ public class LoginResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Player loginPlayer(Player player) {
 		if (player != null) {
-			//if(Casino.getInstance().checkPlayerExistence(player))
-			player.calculateHashCode();
-			System.out.println(player.getAccessToken());
+			if (!Casino.getInstance().checkPlayerExistence(player))
+				player.calculateHashCode();
 			return player;
 		} else {
 			throw new WebApplicationException(Status.BAD_REQUEST);
 		}
-		//return null;
 	}
-	
+
 }
