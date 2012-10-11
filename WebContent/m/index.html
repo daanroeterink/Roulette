@@ -9,67 +9,119 @@
 	
 	<script>
 	$(document).ready(function(){
-		loadBuildings();
+		loadTables();
+		
+		$(document).bind( "pagebeforechange", function( e, data ) {
+			if ( typeof data.toPage === "string" ) {
+				var u = $.mobile.path.parseUrl(data.toPage);
+				if ( u.hash.search(/^#table/) !== -1 ) {
+					var id = u.hash.replace( /.*id=/, "" );
+					showBuilding(id);
+								
+					//Prevent the default action
+					e.preventDefault();
+				}
+			}
+		});
 		});
 	
-	function loadBuildings() {
+	function loadTables() {
 		$('#tablesList').empty();
 		$.getJSON('../api/tables/', function(data) {
-			var tableObj = data.table;
+			var tableObj = data;
 			$.each(tableObj, function(key, tableObj) {
-				var id = tableObj['ID'];
+				var id = tableObj['id'];
 				
-				//var code = "<li><a href=\"#detailpage?id=" + id + "\">Table " + id + "</a></li>";
-				
-				var code = String.format("<li><a href=\"#detailpage?id={0}\">Table {1}</a></li>", id, id);
+				var code = "<li><a href=\"#table?id=" + id + "\">Table " + id + "</a></li>";
 				$('#tablesList').append(code);
 			});
 			$("#tablesList").listview('refresh');
 		});
 	}
 	
-	String.prototype.format = String.prototype.f = function() {
-	    var s = this,
-	        i = arguments.length;
+	function login() {
+		var uName = $('#username').val();
+        var Password = $('#password').val();
 
-	    while (i--) {
-	        s = s.replace(new RegExp('\\{' + i + '\\}', 'gm'), arguments[i]);
-	    }
-	    return s;
-	};
+        var player = new Object();
+        player['username'] = uName;
+        player['password'] = Password;
+
+        var jsonString = JSON.stringify(player);
+        alert(jsonString);
+        $.ajax({
+            type: 'POST',
+            url: '../api/login',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: jsonString,
+            success: function (result) {
+                alert("success");
+                alert(result.username);
+                alert(result.password);
+                alert(result.accessToken);
+                
+            },
+            error: function (result, ajaxOptions, thrownError) {
+                alert("Errormessage: " + result.status);
+                alert(thrownError);
+            }
+        });
+		
+		//window.location.href = "#overview";
+		}
+	
+	function showBuilding(id) {
+		$.getJSON('../api/table/' + id, function (data) {
+// 			$('#idfield').val(data['@id']);
+// 			$('#officialnamefield').val(data['officialname']);
+// 			$('#nicknamefield').val(data['nickname']);
+			
+			var page = $('#table');
+			$.mobile.changePage(page);
+		});
+	}
 	</script>
 </head> 
 <body> 
 
-<div data-role="page" id="overview">
+
+<div data-role="page" id="login">
 	<div data-role="header">
-		<h1>Roulette</h1>
+		<h1>Roulette Login</h1>
 	</div>
 
 	<div data-role="content">	
-		<ul id="tablesList" data-role="listview" data-inset="true" data-filter="true">
-			
-		</ul>	
+		<label for="idUsername">Username</label>
+		<input type="text" id="username"/>
+	
+		<label for="isPassword">Password</label>
+		<input type="text" id="password"/>
+		
+		<a data-role="button" data-icon="check" onClick="login();">Login</a>
 	</div>
 </div>
 
-<div data-role="page" id="detailpage">
+<div data-role="page" id="overview">
 	<div data-role="header">
-		<h1>Buildingdetails</h1>
+		<h1>Roulette Overview</h1>
 	</div>
-	<div data-role="content">
-		<label for="idfield">ID</label>
-		<input type="text" id="idfield" disabled="disabled"/>
-	
-		<label for="officialnamefield">Official name</label>
-		<input type="text" id="officialnamefield"/>
-		
-		<label for="nicknamefield">Nick name</label>
-		<input type="text" id="nicknamefield"/>
-		
-		<a href="#" data-role="button" data-icon="check" onClick="">Save</a>
-		<a href="#listpage" data-role="button" data-icon="back">Cancel</a>
+
+	<div data-role="content">	
+		<ul id="tablesList" data-role="listview" data-inset="true" data-filter="true"></ul>	
 	</div>
+</div>
+
+<div data-role="page" id="table">
+	<div data-role="header">
+		<h1>Roulette Tabel</h1>
+	</div>
+
+	<div data-role="content">	
+		
+	</div>
+</div>
+
 </div>
 </body>
 </html>
