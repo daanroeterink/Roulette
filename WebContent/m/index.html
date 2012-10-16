@@ -16,7 +16,7 @@
 				var u = $.mobile.path.parseUrl(data.toPage);
 				if ( u.hash.search(/^#table/) !== -1 ) {
 					var id = u.hash.replace( /.*id=/, "" );
-					showBuilding(id);
+					refreshTableInformation(id);
 								
 					//Prevent the default action
 					e.preventDefault();
@@ -57,10 +57,10 @@
             data: jsonString,
             success: function (result) {
                 alert("success");
-                alert(result.username);
-                alert(result.password);
-                alert(result.accessToken);
-                
+                localStorage.setItem('Username', result.username);
+                localStorage.setItem('Password', result.password);
+                localStorage.setItem('AccessToken', result.accessToken);
+        		window.location.href = "#overview";
             },
             error: function (result, ajaxOptions, thrownError) {
                 alert("Errormessage: " + result.status);
@@ -68,15 +68,22 @@
             }
         });
 		
-		//window.location.href = "#overview";
 		}
 	
-	function showBuilding(id) {
+	function refreshTableInformation(id) {
 		$.getJSON('../api/table/' + id, function (data) {
-// 			$('#idfield').val(data['@id']);
-// 			$('#officialnamefield').val(data['officialname']);
-// 			$('#nicknamefield').val(data['nickname']);
 			
+			$('#playerList').empty();
+				var tableObj = data.players;
+				$.each(tableObj, function(key, tableObj) {
+					var username = tableObj['username'];
+					
+					var code = "<li>" + username + "</li>";
+					$('#playerList').append(code);
+				});
+				//$("#playerList").listview('refresh');
+				
+				
 			var page = $('#table');
 			$.mobile.changePage(page);
 		});
@@ -118,7 +125,13 @@
 	</div>
 
 	<div data-role="content">	
+		<label for="idPlayers">Players</label>
+		<ul id="playerList" data-role="listview" data-inset="true"></ul>	
+	
+		<label for="idAmount">Amount</label>
+		<input type="text" id="amount"/>
 		
+		<a data-role="button" data-icon="check" onClick="placeBet();">Place bet</a>
 	</div>
 </div>
 
