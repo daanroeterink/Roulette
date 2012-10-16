@@ -68,10 +68,40 @@
             }
         });
 		
-		}
+	}
+
+	function joinTable(id) {
+	    var id = $('#idfield').val();
+	    var oName = $('#officialnamefield').val();
+	    var nName = $('#nicknamefield').val();
+	    var jsonObject = new Object();
+	    jsonObject.officialname = oName;
+	    jsonObject.nickname = nName;
+
+	    var jsonString = JSON.stringify(jsonObject);
+
+
+	    $.ajax({
+	        type: 'PUT',
+	        url: '../table/' + id,
+	        dataType: 'json',
+	        contentType: 'application/json; charset=utf-8',
+	        data: jsonString,
+	        //success: function (result) {
+	        //    var page = $('#listpage');
+	        //    $.mobile.changePage(page);
+	        //    loadBuildings();
+	        //},
+	        //error: function (result, ajaxOptions, thrownError) {
+	        //    alert("Errormessage: " + result.status);
+	        //    alert(thrownError);
+	        //}
+	    });
+	}
 	
 	function refreshTableInformation(id) {
-		$.getJSON('../api/table/' + id, function (data) {
+	    $.getJSON('../api/table/' + id, function (data) {
+	        localStorage.setItem('tableId', id);
 			
 			$('#playerList').empty();
 				var tableObj = data.players;
