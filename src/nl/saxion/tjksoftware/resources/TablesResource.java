@@ -22,6 +22,4 @@ public class TablesResource {
 	public List<Table> getTables() {
 		return Casino.getInstance().getTables();
 	}
-	
-
 }

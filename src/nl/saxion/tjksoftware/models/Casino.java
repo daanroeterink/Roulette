@@ -12,7 +12,6 @@ import nl.saxion.tjksoftware.models.Bet.BetLocation;
 @XmlRootElement
 public class Casino
 {
-
 	private static Casino casino;
 
 	private List<Table> tables;

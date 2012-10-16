@@ -6,16 +6,23 @@
     <script type="text/javascript" src="jquery-1.8.2.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('#loginButton').click(function () {
+
+            if (localStorage.getItem('Username') != "" && localStorage.getItem('Password') != "") {
+                login(localStorage.getItem('Username'), localStorage.getItem('Password'));
+            }
+		
+		  $('#loginButton').click(function () {
                 var uName = $('#username').val();
                 var Password = $('#password').val();
-
-                var player = new Object();
-                player['username'] = uName;
-                player['password'] = Password;
+				login(uName,Password);
+            });
+			
+			function login(username,password) {
+			    var player = new Object();
+                player['username'] = username;
+                player['password'] = password;
 
                 var jsonString = JSON.stringify(player);
-                alert(jsonString);
                 $.ajax({
                     type: 'POST',
                     url: 'api/login',
@@ -23,10 +30,10 @@
                     contentType: 'application/json; charset=utf-8',
                     data: jsonString,
                     success: function (result) {
-                        alert("success");
                         localStorage.setItem('Username', result.username);
                         localStorage.setItem('Password', result.password);
-                        localStorage.setItem('AccessToken', result.accessToken);
+                        localStorage.setItem('accessToken', result.accessToken);
+                        $('#userlogin').html("<a id=\"logoutLink\" onClick=\"logout();\" href=\"#\">Logout</a>");
                         downloadBettingTable();
                     },
                     error: function (result, ajaxOptions, thrownError) {
@@ -34,10 +41,10 @@
                         alert(thrownError);
                     }
                 });
-            });
+			}
 
             $('#accessButton').click(function () {
-                alert(localStorage.getItem('AccessToken'));
+                alert(localStorage.getItem('accessToken'));
             });
 
             function downloadBettingTable() {
@@ -48,14 +55,22 @@
                     $('#bettingTable').html(data);
                 });
             }
+
         });
+
+
+        function logout() {
+            localStorage.clear();
+            window.location.reload();
+            $('#userlogin').html("<a id=\"loginLink\"  href=\"#\">Login</a>");
+        }
     </script>
 </head>
 <body>
     <header>The Roulette Casino</header>
     <menu>
         <ul>
-            <li>Login</li>
+            <li id="userlogin"><a id="loginLink" href="#">Login</a></li>
             <li>Choose table</li>
             <li>Manage account</li>
         </ul>
