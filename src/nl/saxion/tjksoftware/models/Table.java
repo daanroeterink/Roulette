@@ -27,6 +27,11 @@ public class Table {
 	public Table() {
 		
 	}
+	
+	public Player getPlayer(int id) {
+		Player player = players.get(0);
+		return player;
+	}
 
 	public List<Player> getPlayers() {
 		return players;
@@ -75,4 +80,6 @@ public class Table {
 		}
 		return false;
 	}
+	
+	
 }

@@ -31,8 +31,8 @@ public class Casino {
 		tables.add(new Table(tables.size() + 1));
 		tables.add(new Table(tables.size() + 1));
 		tables.get(0).addPlayer(new Player());
-		tables.get(0).getPlayers().get(0).setMoney(5000);
-		tables.get(0).placeBet(tables.get(0).getPlayers().get(0), 1000,
+		tables.get(0).getPlayer(0).setMoney(5000);
+		tables.get(0).placeBet(tables.get(0).getPlayer(0), 1000,
 				BetLocation.black);
 	}
 

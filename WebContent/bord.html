@@ -1,8 +1,4 @@
-<html5>
-<head>
-<title>
-    Roulette tafels
-</title>
+<body>
     <script type="text/javascript">
         var colors = ["#000000", "#FF0000", "#00FF00", ];
         var rouletteNumber = ["0", "32", "15", "19", "4", "21", "2", "25", "17", "34", "6", "27", "13", "36", "11", "30", "8", "23", "10", "5", "24", "16", "33", "1", "20", "14", "31", "9", "22", "18", "29", "7", "28", "12", "35", "3", "26"];
@@ -28,7 +24,6 @@
 
                 ctx = canvas.getContext("2d");
                 ctx.clearRect(0, 0, 500, 500);
-
 
                 ctx.strokeStyle = "black";
                 ctx.lineWidth = 2;
@@ -80,11 +75,11 @@
             }
         }
 
-        function spin() {
+        function spin(stopvalue) {
             spinAngleStart = Math.random() * 10 + 10;
             spinTime = 0;
             spinTimeTotal = Math.random() * 3 + 4 * 1000;
-            randomvalue = Math.floor((Math.random() * 36));
+            randomvalue = stopvalue;
             var worth = document.getElementById("waarde");
             worth.value = rouletteNumber[randomvalue];
             rotateWheel();
@@ -95,10 +90,8 @@
             var degrees = startAngle * 180 / Math.PI + 90;
             var arcd = arc * 180 / Math.PI;
             var index = Math.floor((360 - degrees % 360) / arcd);
-            if (spinTime >= spinTimeTotal)
-            {
-                if (index == randomvalue)
-                {
+            if (spinTime >= spinTimeTotal) {
+                if (index == randomvalue) {
                     stopRotateWheel();
                     return;
                 }
@@ -128,11 +121,46 @@
         }
 
         drawRouletteWheel();
+
+        var Chat = {};
+
+        Chat.socket = null;
+
+        Chat.connect = (function (host) {
+            if ('WebSocket' in window) {
+                Chat.socket = new WebSocket(host);
+            } else if ('MozWebSocket' in window) {
+                Chat.socket = new MozWebSocket(host);
+            } else {
+                return;
+            }
+
+            Chat.socket.onopen = function () {
+                
+            };
+
+            Chat.socket.onclose = function () {
+                document.getElementById('chat').onkeydown = null;
+            };
+
+            Chat.socket.onmessage = function (message) {
+                spin(message.data);
+            };
+        });
+
+        Chat.initialize = function () {
+            if (window.location.protocol == 'http:') {
+                Chat.connect('ws://' + window.location.host + '/Roulette/chat');
+            } else {
+                Chat.connect('wss://' + window.location.host + '/Roulette/chat');
+            }
+        };
+
+        Chat.sendMessage = (function () {
+            Chat.socket.send("Test");
+        });
+
+        Chat.initialize();
     </script>
-</head>
-<body>
-<input type="text" id="waarde" />
-<input type="button" value="spin" onclick="spin();" style="float:left;" />
-<canvas id="canvas" width="500" height="500"></canvas>
+    <canvas id="canvas" width="500" height="500"></canvas>
 </body>
-</html5>

@@ -27,6 +27,7 @@
                         localStorage.setItem('Username', result.username);
                         localStorage.setItem('Password', result.password);
                         localStorage.setItem('AccessToken', result.accessToken);
+                        downloadBettingTable();
                     },
                     error: function (result, ajaxOptions, thrownError) {
                         alert("Errormessage: " + result.status);
@@ -38,6 +39,15 @@
             $('#accessButton').click(function () {
                 alert(localStorage.getItem('AccessToken'));
             });
+
+            function downloadBettingTable() {
+                $.get('bord.html', function (data) {
+                    $('#contentDiv').html(data);
+                });
+                $.get('inzetTafel.html', function (data) {
+                    $('#bettingTable').html(data);
+                });
+            }
         });
     </script>
 </head>
@@ -55,6 +65,8 @@
         <input type="text" id="password" />
         <button id="loginButton">Login</button>
         <button id="accessButton">Get AccessToken</button>
+    </div>
+    <div id="bettingTable">
     </div>
 </body>
 </html>
