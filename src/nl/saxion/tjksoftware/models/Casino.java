@@ -44,7 +44,7 @@ public class Casino
 		player3.setUsername("Testspeler 3");
 		tables.get(0).addPlayer(player3);
 		tables.get(0).getPlayers().get(0).setMoney(5000);
-		tables.get(0).placeBet(tables.get(0).getPlayers().get(0), 1000,	BetLocation.black);
+		tables.get(0).placeBet(tables.get(0).getPlayers().get(0), 1000, BetLocation.black);
 	}
 
 	public List<Table> getTables()
@@ -100,6 +100,18 @@ public class Casino
 		for (Player player : players)
 		{
 			if (player.getID() == id)
+			{
+				return player;
+			}
+		}
+		throw new WebApplicationException(Status.NOT_FOUND);
+	}
+
+	public Player getPlayerWithAccessToken(String accessToken)
+	{
+		for (Player player : players)
+		{
+			if (player.getAccessToken().equals(accessToken))
 			{
 				return player;
 			}

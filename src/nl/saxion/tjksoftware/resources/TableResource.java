@@ -17,14 +17,18 @@ import nl.saxion.tjksoftware.models.Player;
 import nl.saxion.tjksoftware.models.Table;
 
 @Path("/table/{id}")
-public class TableResource {
+public class TableResource
+{
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Table getTable(@PathParam("id") Integer id) {
+	public Table getTable(@PathParam("id") Integer id)
+	{
 		if (id != null)
-			for (Table table : Casino.getInstance().getTables()) {
-				if (table.getID() == id) {
+			for (Table table : Casino.getInstance().getTables())
+			{
+				if (table.getID() == id)
+				{
 					return table;
 				}
 			}
@@ -33,8 +37,10 @@ public class TableResource {
 
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void addBet(@PathParam("id") Integer id, Bet bet) {
-		if (id != null) {
+	public void addBet(@PathParam("id") Integer id, Bet bet)
+	{
+		if (id != null)
+		{
 			Player player = Casino.getInstance().getPlayerWithID(id);
 			if (player != null)
 				player.createBet(bet.getBetAmmount(), bet.getBetLocation());
@@ -44,14 +50,19 @@ public class TableResource {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void addPlayer(@PathParam("id") Integer id, Player player) {
-		if (player != null && id != null) {
+	public void addPlayer(@PathParam("id") Integer id, Player player)
+	{
+		if (player != null && id != null)
+		{
 			Table table = Casino.getInstance().getTableWithID(id);
-			if (table.getPlayers().size() < 10) {
-				table.addPlayer(player);
-			} else {
+			if (table.getPlayers().size() < 10)
+			{
+				table.addPlayer(Casino.getInstance().getPlayerWithAccessToken(player.getAccessToken()));
+			}
+			else
+			{
 				throw new WebApplicationException(Status.BAD_REQUEST);
 			}
-		} 
+		}
 	}
 }
