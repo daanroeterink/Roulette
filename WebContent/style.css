@@ -29,3 +29,12 @@ MENU {
 TD {
     width:10px;
 }
+#console {
+	float:right;
+	width:300px;
+	background-color:black;
+	color:#FFFFFF;
+	border-radius:30px;
+	margin:25px 0px 40px 40px;
+	padding:10px 0px 10px 10px;
+}
