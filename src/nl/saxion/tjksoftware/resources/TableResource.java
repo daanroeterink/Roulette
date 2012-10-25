@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response.Status;
 
 import nl.saxion.tjksoftware.models.Bet;
 import nl.saxion.tjksoftware.models.Casino;
+import nl.saxion.tjksoftware.models.Log;
 import nl.saxion.tjksoftware.models.Player;
 import nl.saxion.tjksoftware.models.Table;
 

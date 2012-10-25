@@ -45,6 +45,8 @@ function joinTable(id)
     });
 }
 
+var currentRound = 0;
+
 function getTableInfo(id)
 {
     $.getJSON('api/table/' + id, function (data)
@@ -66,5 +68,22 @@ function getTableInfo(id)
 
             $('#playerList').append(code);
         });
+
+        if (currentRound != data.currentRound)
+        {
+            for (var i = 0; i < data.lastWinners.length; i++)
+            {
+                if (data.lastWinners[i] == localStorage.getItem('Username'))
+                {
+                    alert("You won this time!");
+                }
+                else
+                {
+                    alert("You lost. Next time better!");
+                }
+            }
+        }
+
+        currentRound = data.currentRound;
     });
 }

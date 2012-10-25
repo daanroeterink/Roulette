@@ -7,10 +7,8 @@ Chat.connect = (function (host)
     if ('WebSocket' in window)
     {
         Chat.socket = new WebSocket(host);
-    } else if ('MozWebSocket' in window)
-    {
-        Chat.socket = new MozWebSocket(host);
-    } else
+    }
+    else
     {
         return;
     }
@@ -22,7 +20,8 @@ Chat.connect = (function (host)
 
     Chat.socket.onclose = function ()
     {
-        document.getElementById('chat').onkeydown = null;
+
+
     };
 
     Chat.socket.onmessage = function (message)

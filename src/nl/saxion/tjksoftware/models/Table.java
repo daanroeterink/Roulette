@@ -12,11 +12,11 @@ import javax.ws.rs.core.Response.Status;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import nl.saxion.tjksoftware.models.Bet.BetLocation;
+import nl.saxion.tjksoftware.resources.TafelWebSocket;
 
 @XmlRootElement
 public class Table
 {
-
 	private List<Player> players;
 
 	private List<Bet> bets;
@@ -48,7 +48,7 @@ public class Table
 	{
 		Timer timer = new Timer("Table: " + ID);
 		TableThread t = new TableThread(ID);
-		timer.schedule(t, 0, 1200000);
+		timer.schedule(t, 0, 120000);
 	}
 
 	public Player getPlayer(int id)
@@ -165,6 +165,8 @@ public class Table
 		{
 			lastWinners.clear();
 			calculateWinners();
+			Log.I("Webscokets");
+			TafelWebSocket.getInstance().broadcast("" + Id + "," + winningNumber);
 			calculateNextWinningNumber();
 			clearBets();
 			currentRound++;
@@ -243,7 +245,6 @@ public class Table
 									}
 								}
 							}
-
 						}
 					}
 				}

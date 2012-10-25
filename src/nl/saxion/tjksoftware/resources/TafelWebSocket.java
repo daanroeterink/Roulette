@@ -26,6 +26,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 
+import nl.saxion.tjksoftware.models.Log;
+
 import org.apache.catalina.websocket.MessageInbound;
 import org.apache.catalina.websocket.StreamInbound;
 import org.apache.catalina.websocket.WebSocketServlet;
@@ -41,7 +43,8 @@ public class TafelWebSocket extends WebSocketServlet
 {
 	private static ChatWebSocketServlet chatWeb;
 
-	public static ChatWebSocketServlet getInstance() {
+	public static ChatWebSocketServlet getInstance()
+	{
 		if (chatWeb == null)
 		{
 			chatWeb = new ChatWebSocketServlet();
@@ -54,11 +57,29 @@ public class TafelWebSocket extends WebSocketServlet
 	private static final String GUEST_PREFIX = "Guest";
 
 	private final AtomicInteger connectionIds = new AtomicInteger(0);
+
 	private final Set<ChatMessageInbound> connections = new CopyOnWriteArraySet<ChatMessageInbound>();
+
+	public void broadcast(String message)
+	{
+		for (ChatMessageInbound connection : connections)
+		{
+			try
+			{
+				CharBuffer buffer = CharBuffer.wrap(message);
+				connection.getWsOutbound().writeTextMessage(buffer);
+			}
+			catch (IOException ignore)
+			{
+
+			}
+		}
+	}
 
 	@Override
 	protected StreamInbound createWebSocketInbound(String subProtocol,
-			HttpServletRequest request) {
+		HttpServletRequest request)
+	{
 		return new ChatMessageInbound(connectionIds.incrementAndGet());
 	}
 
@@ -73,37 +94,44 @@ public class TafelWebSocket extends WebSocketServlet
 		}
 
 		@Override
-		protected void onOpen(WsOutbound outbound) {
+		protected void onOpen(WsOutbound outbound)
+		{
 			connections.add(this);
-					}
+			Log.I("websocketconnected");
+		}
 
 		@Override
-		protected void onClose(int status) {
+		protected void onClose(int status)
+		{
 			connections.remove(this);
 		}
 
 		@Override
-		protected void onBinaryMessage(ByteBuffer message) throws IOException {
+		protected void onBinaryMessage(ByteBuffer message) throws IOException
+		{
 			throw new UnsupportedOperationException(
-					"Binary message not supported.");
+				"Binary message not supported.");
 		}
 
 		@Override
-		protected void onTextMessage(CharBuffer message) throws IOException {
+		protected void onTextMessage(CharBuffer message) throws IOException
+		{
 			// Never trust the client
 			String filteredMessage = String.format("%s: %s", nickname,
-					HTMLFilter.filter(message.toString()));
+				HTMLFilter.filter(message.toString()));
 			System.out.println(filteredMessage);
 		}
 
-		private void broadcast(String message) {
+		private void broadcast(String message)
+		{
 			for (ChatMessageInbound connection : connections)
 			{
 				try
 				{
 					CharBuffer buffer = CharBuffer.wrap(message);
 					connection.getWsOutbound().writeTextMessage(buffer);
-				} catch (IOException ignore)
+				}
+				catch (IOException ignore)
 				{
 					// Ignore
 				}
