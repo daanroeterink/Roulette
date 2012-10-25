@@ -108,7 +108,6 @@
 	function joinTable(id) {
 	    var jsonObject = new Object();
 	    jsonObject.accessToken = localStorage.getItem('AccessToken');
-		alert(localStorage.getItem('AccessToken'));
 	    var jsonString = JSON.stringify(jsonObject);
 
 	    $.ajax({
