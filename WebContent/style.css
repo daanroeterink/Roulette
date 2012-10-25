@@ -5,6 +5,8 @@ HEADER {
     text-align:center;
     font:bold 40px Calibri,serif;
     border-radius:30px;
+    padding-left:40px;
+    padding-right:40px;
 }
 
 MENU {
@@ -37,7 +39,7 @@ TD {
 #console {
 	position:fixed;
 	right:10;
-	top:50px;
+	top:150px;
 	width:300px;
 	height:200px;
 	background-color:black;
@@ -45,4 +47,12 @@ TD {
 	border-radius:30px;
 	margin:25px 0px 40px 40px;
 	padding:10px 0px 10px 10px;
+}
+#loginScreen 
+{
+    margin-left:auto;
+    right:40px;
+    margin-right:40px;
+    width:200px;
+    font-size:12px;
 }

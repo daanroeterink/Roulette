@@ -87,7 +87,7 @@ public class ChatWebSocketServlet extends WebSocketServlet {
             connections.add(this);
             String message = String.format("* %s %s",
                     nickname, "has joined.");
-            broadcast("1");
+            broadcast(message);
         }
 
         @Override
@@ -95,7 +95,7 @@ public class ChatWebSocketServlet extends WebSocketServlet {
             connections.remove(this);
             String message = String.format("* %s %s",
                     nickname, "has disconnected.");
-            broadcast("2");
+            broadcast(message);
         }
 
         @Override

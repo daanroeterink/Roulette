@@ -13,22 +13,18 @@ import nl.saxion.tjksoftware.models.Player;
 @Path("/login")
 public class LoginResource
 {
-
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Player loginPlayer(Player player)
 	{
 		if (player != null)
 		{
-			if (!Casino.getInstance().checkPlayerExistence(player))
-				player.calculateHashCode();
-			Casino.getInstance().addUniquePlayer(player);
-			return player;
+			if (Casino.getInstance().checkPlayerExistence(player))
+			{
+				Casino.getInstance().getPlayerWithUsername(player.getUsername());
+				return player;
+			}
 		}
-		else
-		{
-			throw new WebApplicationException(Status.BAD_REQUEST);
-		}
+		throw new WebApplicationException(Status.NOT_FOUND);
 	}
-
 }

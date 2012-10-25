@@ -106,6 +106,18 @@ public class Casino
 		}
 		throw new WebApplicationException(Status.NOT_FOUND);
 	}
+	
+	public Player getPlayerWithUsername(String username)
+	{
+		for (Player player : players)
+		{
+			if (player.getUsername().equals(username))
+			{
+				return player;
+			}
+		}
+		throw new WebApplicationException(Status.NOT_FOUND);
+	}
 
 	public Player getPlayerWithAccessToken(String accessToken)
 	{
