@@ -43,7 +43,7 @@ public class Table
 	{
 		Timer timer = new Timer("Table: " + ID);
 		TableThread t = new TableThread(ID);
-		timer.schedule(t, 0, 10000);
+		timer.schedule(t, 0, 60000);
 	}
 
 	public Player getPlayer(int id)
