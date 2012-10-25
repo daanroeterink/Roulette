@@ -20,18 +20,17 @@ MENU {
 #main 
 {
     margin-top:25px;
-    margin-left:auto;
+    margin-left:50px;
     margin-right:auto;
-    width:500px;
-    left:50%;
+    padding-left:40px;
+    background-color:rgba(177, 153, 6, 0.58);
+    float:left;
 }
 #contentDiv {
     float:left;
-    background-color:rgba(177, 153, 6, 0.58);
 }
 #bettingTable {
     float:left;
-    background-color:rgba(177, 153, 6, 0.58);
     width:inherit;
 }
 TD {
@@ -39,14 +38,12 @@ TD {
 }
 #console {
 	position:fixed;
-	right:10;
-	top:150px;
+	top:200px;
 	width:300px;
 	height:200px;
 	background-color:black;
 	color:#FFFFFF;
 	border-radius:30px;
-	margin:25px 0px 40px 40px;
 	padding:10px 0px 10px 10px;
 }
 #loginScreen 

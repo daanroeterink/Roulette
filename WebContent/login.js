@@ -24,14 +24,13 @@ function login(username, password)
             localStorage.setItem('Username', result.username);
             localStorage.setItem('Password', result.password);
             localStorage.setItem('accessToken', result.accessToken);
-            alert(result.accessToken);
             $('#loginScreen').html("<button onclick=\"logout();\" id=\"logoutButton\">Logout</button>");
-            downloadBettingTable();
+            loadTables();
         },
         error: function (result, ajaxOptions, thrownError)
         {
-            alert("Errormessage: " + result.status);
-            alert(thrownError);
+            //alert("Errormessage: " + result.status);
+            //alert(thrownError);
         }
     });
 }

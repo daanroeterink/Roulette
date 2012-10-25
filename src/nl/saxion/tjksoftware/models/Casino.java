@@ -42,6 +42,9 @@ public class Casino
 		tables.get(0).addPlayer(player2);
 		Player player3 = new Player();
 		player3.setUsername("Testspeler 3");
+		players.add(player1);
+		players.add(player2);
+		players.add(player3);
 		tables.get(0).addPlayer(player3);
 		tables.get(0).getPlayers().get(0).setMoney(5000);
 		tables.get(0).placeBet(tables.get(0).getPlayers().get(0), 1000, BetLocation.black);
@@ -107,7 +110,7 @@ public class Casino
 		}
 		throw new WebApplicationException(Status.NOT_FOUND);
 	}
-	
+
 	public Player getPlayerWithUsername(String username)
 	{
 		for (Player player : players)

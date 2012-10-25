@@ -3,7 +3,6 @@ package nl.saxion.tjksoftware.resources;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -33,19 +32,6 @@ public class TableResource
 				}
 			}
 		throw new WebApplicationException(Status.NOT_FOUND);
-	}
-
-	@PUT
-	@Consumes(MediaType.APPLICATION_JSON)
-	public void addBet(@PathParam("id") Integer id, Bet bet)
-	{
-		if (id != null)
-		{
-			Player player = Casino.getInstance().getPlayerWithID(id);
-			if (player != null)
-				player.createBet(bet.getBetAmmount(), bet.getBetLocation());
-			Casino.getInstance().getTableWithID(id);
-		}
 	}
 
 	@POST
