@@ -2,6 +2,9 @@ package nl.saxion.tjksoftware.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response.Status;
@@ -19,16 +22,28 @@ public class Table
 
 	private int ID;
 
+	private BetLocation winningNumber;
+
+	private boolean blockTable;
+
 	public Table(int ID)
 	{
 		players = new ArrayList<Player>();
 		bets = new ArrayList<Bet>();
 		this.ID = ID;
+		startTableThread();
 	}
 
 	public Table()
 	{
+		startTableThread();
+	}
 
+	private void startTableThread()
+	{
+		Timer timer = new Timer("Table: " + ID);
+		TableThread t = new TableThread(ID);
+		timer.schedule(t, 0, 10000);
 	}
 
 	public Player getPlayer(int id)
@@ -90,7 +105,7 @@ public class Table
 		int t = 0;
 		for (Player p : players)
 		{
-			if (p.equals(player))
+			if (p.getID() == player.getID())
 			{
 				players.remove(t);
 			}
@@ -108,4 +123,55 @@ public class Table
 		return false;
 	}
 
+	public class TableThread extends TimerTask
+	{
+		/** Het id van de table */
+		private int Id;
+
+		private String logPrefix;
+
+		public TableThread(int Id)
+		{
+			this.Id = Id;
+			logPrefix = "Table " + Id + ": ";
+			Log.I(logPrefix + "Started!");
+		}
+
+		public void run()
+		{
+			calculateWinners();
+			calculateNextWinningNumber();
+		}
+
+		private void calculateNextWinningNumber()
+		{
+			Random r = new Random();
+			winningNumber = BetLocation.values()[r.nextInt(36)];
+			Log.I(logPrefix + "Next winning number: " + winningNumber);
+		}
+
+		private void calculateWinners()
+		{
+			if (players.size() > 0)
+			{
+				if (bets.size() > 0)
+				{
+					Log.I(logPrefix + "Calculating winners!");
+					for (Bet bet : bets)
+					{
+						if (bet != null)
+						{
+							winningNumber = BetLocation.eleven;
+							Log.D(bet.getBetLocation().toString());
+							if (bet.getBetLocation().equals(winningNumber))
+							{
+								Log.D("TEST");
+							}
+						}
+					}
+				}
+				Log.I(logPrefix + "There were no bets placed");
+			}
+		}
+	}
 }
