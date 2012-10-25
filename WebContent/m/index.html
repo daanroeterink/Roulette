@@ -19,6 +19,7 @@
 	                        var id = u.hash.replace(/.*id=/, "");
 	                        joinTable(id);
 	                        refreshTableInformation(id);
+	                        timer(id);
 	                        e.preventDefault();
 	                    }
 	                }
@@ -117,6 +118,11 @@
 	    });
 	}
 	
+	function timer(id)
+	{
+	setInterval(function() {refreshTableInformation(id)}, 1000);
+	}
+	
 	function refreshTableInformation(id) {
 	    $.getJSON('../api/table/' + id, function (data) {
 	        localStorage.setItem('tableId', id);
@@ -129,11 +135,11 @@
 					var code = "<li>" + username + "</li>";
 					$('#playerList').append(code);
 				});
-				//$("#playerList").listview('refresh');
 				
 				
 			var page = $('#table');
 			$.mobile.changePage(page);
+			$('#playerList').listview('refresh');
 		});
 	}
 	
