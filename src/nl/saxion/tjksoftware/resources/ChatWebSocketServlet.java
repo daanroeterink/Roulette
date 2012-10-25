@@ -16,7 +16,23 @@
  */
 package nl.saxion.tjksoftware.resources;
 
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.catalina.websocket.MessageInbound;
+import org.apache.catalina.websocket.StreamInbound;
+import org.apache.catalina.websocket.WebSocketServlet;
+import org.apache.catalina.websocket.WsOutbound;
+
 import util.HTMLFilter;
+
 
 /**
  * Example web socket servlet for chat.
@@ -40,6 +56,17 @@ public class ChatWebSocketServlet extends WebSocketServlet {
     private final AtomicInteger connectionIds = new AtomicInteger(0);
     private final Set<ChatMessageInbound> connections =
             new CopyOnWriteArraySet<ChatMessageInbound>();
+    
+    public void broadcast(String message) {
+        for (ChatMessageInbound connection : connections) {
+            try {
+                CharBuffer buffer = CharBuffer.wrap(message);
+                connection.getWsOutbound().writeTextMessage(buffer);
+            } catch (IOException ignore) {
+                
+            }
+        }
+    }
 
     @Override
     protected StreamInbound createWebSocketInbound(String subProtocol,

@@ -37,8 +37,8 @@
                         downloadBettingTable();
                     },
                     error: function (result, ajaxOptions, thrownError) {
-                        alert("Errormessage: " + result.status);
-                        alert(thrownError);
+                        // alert("Errormessage: " + result.status);
+                       // alert(thrownError);
                     }
                 });
 			}
@@ -55,7 +55,7 @@
                     $('#bettingTable').html(data);
                 });
             }
-
+            
         });
 
 
@@ -67,14 +67,18 @@
     </script>
 </head>
 <body>
-    <header>The Roulette Casino</header>
+    <header>The Roulette Casino
+    <div id="loginScreensudo apt-get in"></div>
+    </header>
     <menu>
         <ul>
+          <li id="register"><a id="registerplayer" href="#">Register</a></li>
             <li id="userlogin"><a id="loginLink" href="#">Login</a></li>
             <li>Choose table</li>
             <li>Manage account</li>
         </ul>
     </menu>
+    <div id="main">
     <div id="contentDiv">
         <input type="text" id="username" />
         <input type="text" id="password" />
@@ -83,9 +87,9 @@
     </div>
     <div id="bettingTable">
     </div>
+    </div>
     <div id="console">
-    
-    
+        
     </div>
 </body>
 </html>

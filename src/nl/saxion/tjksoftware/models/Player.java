@@ -27,6 +27,7 @@ public class Player {
 
 	public void setAccessToken(String accessToken) {
 		this.accessToken = accessToken;
+		System.out.println();
 	}
 
 	public double getMoney() {
@@ -89,6 +90,7 @@ public class Player {
 	@Override
 	public boolean equals(Object other) {
 		if (other instanceof Player) {
+			if(other != null)
 			return this.username.equals(((Player) other).username);
 		}
 		return false;

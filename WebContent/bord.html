@@ -35,9 +35,9 @@
                     ctx.fillStyle = colors[2];
                 }
                 else if (i % 2)
-                    ctx.fillStyle = colors[0];
-                else
                     ctx.fillStyle = colors[1];
+                else
+                    ctx.fillStyle = colors[0];
 
                 ctx.beginPath();
                 ctx.arc(250, 250, outsideRadius, angle, angle + arc, false);
@@ -149,9 +149,9 @@
 
     Chat.initialize = function () {
         if (window.location.protocol == 'http:') {
-            Chat.connect('ws://' + window.location.host + '/Roulette/chat');
+            Chat.connect('ws://' + window.location.host + '/Roulette/bordnumber');
         } else {
-            Chat.connect('wss://' + window.location.host + '/Roulette/chat');
+            Chat.connect('wss://' + window.location.host + '/Roulette/bordnumber');
         }
     };
 
