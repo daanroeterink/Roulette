@@ -55,6 +55,7 @@ public class TableResource
 		if (player != null && id != null)
 		{
 			Table table = Casino.getInstance().getTableWithID(id);
+			Casino.getInstance().removePlayerFromTables(player);
 			if (table.getPlayers().size() < 10)
 			{
 				table.addPlayer(Casino.getInstance().getPlayerWithAccessToken(player.getAccessToken()));
