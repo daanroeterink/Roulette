@@ -68,9 +68,9 @@ public class TableResource
 		}
 	}
 
-	@Path("/table/{id}/player/{access_token}")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/player/{access_token}")
 	public void addBet(@PathParam("id") Integer id, @PathParam("access_token") String accessToken, Bet bet)
 	{
 		if (accessToken != null)

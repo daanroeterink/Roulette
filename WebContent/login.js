@@ -24,6 +24,7 @@ function login(username, password)
             localStorage.setItem('Username', result.username);
             localStorage.setItem('Password', result.password);
             localStorage.setItem('accessToken', result.accessToken);
+            alert(result.accessToken);
             $('#loginScreen').html("<button onclick=\"logout();\" id=\"logoutButton\">Logout</button>");
             downloadBettingTable();
         },
