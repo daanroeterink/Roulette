@@ -164,10 +164,10 @@ public class Table
 		public void run()
 		{
 			lastWinners.clear();
-			currentRound++;
 			calculateWinners();
 			calculateNextWinningNumber();
 			clearBets();
+			currentRound++;
 		}
 
 		private void calculateNextWinningNumber()

@@ -9,6 +9,7 @@
 	
 	<script>
 	var tableRefreshTimer;
+	var currentRound = 0;
 	
 	    $(document).ready(function () {
 	        if (localStorage.getItem('accessToken') != null) {
@@ -140,6 +141,23 @@
 					var code = "<li>" + username + "</li>";
 					$('#playerList').append(code);
 				});
+				
+				if(currentRound != data.currentRound)
+				{
+					for (var i = 0; i < data.lastWinners.length; i++) {
+					    if(data.lastWinners[i] == localStorage.getItem('Username'))
+					    {
+					    	alert("You won this time!");
+					    }
+					    else
+					    {
+					    	alert("You lost. Next time better!");	
+					    }
+					}
+				}
+
+				currentRound = data.currentRound;
+				
 				
 				
 			$('#playerList').listview('refresh');
