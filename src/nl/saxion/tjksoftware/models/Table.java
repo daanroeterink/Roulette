@@ -141,6 +141,7 @@ public class Table
 		{
 			calculateWinners();
 			calculateNextWinningNumber();
+			clearBets();
 		}
 
 		private void calculateNextWinningNumber()
@@ -150,9 +151,13 @@ public class Table
 			Log.I(logPrefix + "Next winning number: " + winningNumber);
 		}
 
+		private void clearBets()
+		{
+			bets.clear();
+		}
+
 		private void calculateWinners()
 		{
-			// TODO:Calculate black/red
 			if (players.size() > 0)
 			{
 				if (bets.size() > 0)

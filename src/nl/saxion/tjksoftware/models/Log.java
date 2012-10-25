@@ -1,5 +1,7 @@
 package nl.saxion.tjksoftware.models;
 
+import java.util.GregorianCalendar;
+
 /**
  * @author Tom Kostense
  * 
@@ -14,7 +16,8 @@ public class Log
 	 */
 	public static void I(String message)
 	{
-		System.out.println("INFO " + message);
+		GregorianCalendar g = new GregorianCalendar();
+		System.out.println("[" + g.getTime() + "] INFO " + message);
 	}
 
 	/**
@@ -24,7 +27,8 @@ public class Log
 	 */
 	public static void D(String message)
 	{
-		System.out.println("DEBUG " + message);
+		GregorianCalendar g = new GregorianCalendar();
+		System.out.println("[" + g.getTime() + "] DEBUG " + message);
 	}
 
 	/**
@@ -34,7 +38,8 @@ public class Log
 	 */
 	public static void E(String message)
 	{
-		System.out.println("ERROR " + message);
+		GregorianCalendar g = new GregorianCalendar();
+		System.out.println("[" + g.getTime() + "] ERROR " + message);
 	}
 
 	/**
@@ -44,7 +49,8 @@ public class Log
 	 */
 	public static void F(String message)
 	{
-		System.out.println("FATAL " + message);
+		GregorianCalendar g = new GregorianCalendar();
+		System.out.println("[" + g.getTime() + "] FATAL " + message);
 	}
 
 }
