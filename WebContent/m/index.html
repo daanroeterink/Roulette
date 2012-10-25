@@ -19,8 +19,6 @@
 	                        var id = u.hash.replace(/.*id=/, "");
 	                        joinTable(id);
 	                        refreshTableInformation(id);
-
-	                        //Prevent the default action
 	                        e.preventDefault();
 	                    }
 	                }
@@ -139,6 +137,26 @@
 		});
 	}
 	
+	function addMoney()
+    {
+        $.ajax({
+            type: 'PUT',
+            url: '../api/player/' + localStorage.getItem('accessToken'),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(1000),
+            success: function (result)
+            {
+                alert("Done!");
+            },
+            error: function (result, ajaxOptions, thrownError)
+            {
+                alert("Errormessage: " + result.status);
+                alert(thrownError);
+            }
+        });
+    }
+	
 	function bet()
 	{	
 
@@ -198,6 +216,7 @@
 
 	<div data-role="content">	
 		<ul id="tablesList" data-role="listview" data-inset="true" data-filter="true"></ul>	
+	<a data-role="button" data-icon="check" onClick="addMoney();">Free Money - click here</a>
 	</div>
 </div>
 
