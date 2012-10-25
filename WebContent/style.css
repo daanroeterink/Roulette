@@ -32,6 +32,7 @@ MENU {
 #bettingTable {
     float:left;
     background-color:rgba(177, 153, 6, 0.58);
+    width:inherit;
 }
 TD {
     width:10px;
@@ -55,4 +56,25 @@ TD {
     margin-right:40px;
     width:200px;
     font-size:12px;
+}
+/*inzettafel.html */
+#bet
+{
+    table-layout: auto;
+    border: 3px solid black;
+    background-color:#00AA00;
+    color: White;
+}
+.red
+{
+    background-color: Red;
+}
+.black
+{
+    background-color: Black;
+}
+.white
+{
+    background-color:White;
+    color:Black;
 }

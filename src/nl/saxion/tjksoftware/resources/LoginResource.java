@@ -21,8 +21,8 @@ public class LoginResource
 		{
 			if (Casino.getInstance().checkPlayerExistence(player))
 			{
-				Casino.getInstance().getPlayerWithUsername(player.getUsername());
-				return player;
+				Player Retplayer = Casino.getInstance().getPlayerWithUsername(player.getUsername());
+				return Retplayer;
 			}
 		}
 		throw new WebApplicationException(Status.NOT_FOUND);

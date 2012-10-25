@@ -4,6 +4,10 @@
     <title>Insert title here</title>
     <link href="style.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="register.js"></script>
+    <script type="text/javascript" src="login.js"></script>
+    <script type="text/javascript" src="chat.js"></script>
+    <script type="text/javascript" src="bet.js"></script>
     <script>
         $(document).ready(function ()
         {
@@ -14,7 +18,7 @@
                     login(localStorage.getItem('Username'), localStorage.getItem('Password'));
                 }
             }
-       
+
             $('#loginButton').click(function ()
             {
                 var uName = $('#username').val();
@@ -35,136 +39,7 @@
                 alert(localStorage.getItem('accessToken'));
             });
 
-
-            var Chat = {};
-
-            Chat.socket = null;
-
-            Chat.connect = (function (host)
-            {
-                if ('WebSocket' in window)
-                {
-                    Chat.socket = new WebSocket(host);
-                } else if ('MozWebSocket' in window)
-                {
-                    Chat.socket = new MozWebSocket(host);
-                } else
-                {
-                    return;
-                }
-
-                Chat.socket.onopen = function ()
-                {
-
-                };
-
-                Chat.socket.onclose = function ()
-                {
-                    document.getElementById('chat').onkeydown = null;
-                };
-
-                Chat.socket.onmessage = function (message)
-                {
-                    $("#console").html(message);
-                };
-            });
-
-            Chat.initialize = function ()
-            {
-                if (window.location.protocol == 'http:')
-                {
-                    Chat.connect('ws://' + window.location.host + '/Roulette/chat');
-                } else
-                {
-                    Chat.connect('wss://' + window.location.host + '/Roulette/chat');
-                }
-            };
-
-            Chat.sendMessage = (function ()
-            {
-                Chat.socket.send("Test");
-            });
-
-            Chat.initialize();
         });
-
-        function downloadBettingTable()
-        {
-            $.get('bord.html', function (data)
-            {
-                $('#contentDiv').html(data);
-            });
-            $.get('inzetTafel.html', function (data)
-            {
-                $('#bettingTable').html(data);
-            });
-        }
-        
-        function logout() {
-            localStorage.clear();
-            $('#loginScreen').html("Username<input type=\"text\" id=\"username\" />Password<input type=\"text\" id=\"password\" /><button id=\"loginButton\">Login</button><button id=\"registerButton\">Register</button>");
-            window.location.reload();
-        }
-
-        
-        function register()
-        {
-            var player = new Object();
-            var username = $('#regusername').val();
-            var password = $('#regpassword').val();
-
-            player['username'] = username;
-            player['password'] = password;
-
-            var jsonString = JSON.stringify(player);
-            $.ajax({
-                type: 'POST',
-                url: 'api/players',
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                data: jsonString,
-                success: function (result)
-                {
-                    login(username, password);
-                },
-                error: function (result, ajaxOptions, thrownError)
-                {
-                    alert("Errormessage: " + result.status);
-                    alert(thrownError);
-                }
-            });
-        }
-
-
-        function login(username, password)
-        {
-            var player = new Object();
-            player['username'] = username;
-            player['password'] = password;
-
-            var jsonString = JSON.stringify(player);
-            $.ajax({
-                type: 'POST',
-                url: 'api/login',
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                data: jsonString,
-                success: function (result)
-                {
-                    localStorage.setItem('Username', result.username);
-                    localStorage.setItem('Password', result.password);
-                    localStorage.setItem('accessToken', result.accessToken);
-                    $('#loginScreen').html("<button onclick=\"logout();\" id=\"logoutButton\">Logout</button>");
-                    downloadBettingTable();
-                },
-                error: function (result, ajaxOptions, thrownError)
-                {
-                    alert("Errormessage: " + result.status);
-                    alert(thrownError);
-                }
-            });
-        }
-
     </script>
 </head>
 <body>
@@ -177,19 +52,17 @@
     </header>
     <menu>
         <ul>
-          <li>Choose table</li>
-          <li>Manage account</li>
+            <li>Choose table</li>
+            <li>Manage account</li>
         </ul>
     </menu>
     <div id="main">
-    <div id="contentDiv">
-      
-    </div>
-    <div id="bettingTable">
-    </div>
+        <div id="contentDiv">
+        </div>
+        <div id="bettingTable">
+        </div>
     </div>
     <div id="console">
-        
     </div>
 </body>
 </html>

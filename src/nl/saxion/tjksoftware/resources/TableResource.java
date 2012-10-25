@@ -66,4 +66,20 @@ public class TableResource
 			}
 		}
 	}
+
+	@Path("/table/{id}/player/{access_token}")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void addBet(@PathParam("id") Integer id, @PathParam("access_token") String accessToken, Bet bet)
+	{
+		if (accessToken != null)
+		{
+			Player player = Casino.getInstance().getPlayerWithAccessToken(accessToken);
+			if (player != null && id != null && bet != null)
+			{
+				Table table = Casino.getInstance().getTableWithID(id);
+				table.placeBet(player, bet.getBetAmmount(), bet.getBetLocation());
+			}
+		}
+	}
 }

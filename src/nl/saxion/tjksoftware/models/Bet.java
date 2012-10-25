@@ -5,7 +5,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Bet
 {
-
 	public Bet()
 	{
 	}

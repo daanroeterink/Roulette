@@ -1,155 +1,127 @@
-﻿<!DOCTYPE html>
-<html >
-<head>
-    <title>Untitled Page</title>
-    <style type="text/css">
-        #bet
-        {
-            table-layout: auto;
-            border: 3px solid black;
-            background-color:#00AA00;
-               color: White;
-        }
-        .red
-        {
-            background-color: Red;
-        }
-        .black
-        {
-            background-color: Black;
-        }
-        .white
-        {
-            background-color:White;
-            color:Black;
-        }
-    </style>
-</head>
-<body>
-    <table id="bet">
-        <tr>
-            <td class="red">
-                3
-            </td>
-            <td class="black">
-                6
-            </td>
-            <td class="red">
-                9
-            </td>
-            <td class="red">
-                12
-            </td>
-            <td  class="black">
-                15
-            </td>
-            <td class="red">
-                18
-            </td>
-            <td class="red">
-                21
-            </td>
-            <td  class="black">
-                24
-            </td>
-            <td class="red">
-                27
-            </td>
-            <td class="red">
-                30
-            </td>
-            <td  class="black">
-                33
-            </td>
-            <td class="red">
-                36
-            </td>
-            <td class="white">
-                2 to 1
-            </td>
-        </tr>
-        <tr>
-            <td   class="black">
-                2
-            </td>
-            <td  class="red">
-                5
-            </td>
-            <td  class="black">
-                8
-            </td>
-            <td  class="black">
-                11
-            </td>
-            <td class="red">
-                14
-            </td>
-            <td  class="black">
-                17
-            </td>
-            <td  class="black">
-                20
-            </td>
-            <td class="red">
-                23
-            </td>
-            <td  class="black">
-                26
-            </td>
-            <td  class="black">
-                29
-            </td>
-            <td class="red">
-                32
-            </td>
-            <td  class="black">
-                35
-            </td>
-            <td class="white">
-                2 to 1
-            </td>
-        </tr>
-        <tr>
-            <td  class="red">
-                1
-            </td>
-            <td class="black">
-                4
-            </td>
-            <td class="red">
-                7
-            </td>
-            <td class="black">
-                10
-            </td>
-            <td class="black">
-                13
-            </td>
-            <td class="red">
-                16
-            </td>
-            <td class="red">
-                19
-            </td>
-            <td class="black">
-                22
-            </td>
-            <td class="red">
-                25
-            </td>
-            <td class="black">
-                28
-            </td>
-            <td class="black">
-                31
-            </td>
-            <td class="red">
-                34
-            </td>
-            <td class="white">
-                2 to 1
-            </td>
-        </tr>
-    </table>
-</body>
-</html>
+﻿<table id="bet">
+    <tr>
+        <td onclick="addToBetList(3);" class="red">
+            3
+        </td>
+        <td onclick="addToBetList(6);" class="black">
+            6
+        </td>
+        <td onclick="addToBetList(9);" class="red">
+            9
+        </td>
+        <td onclick="addToBetList(12);" class="red">
+            12
+        </td>
+        <td onclick="addToBetList(15);" class="black">
+            15
+        </td>
+        <td onclick="addToBetList(18);" class="red">
+            18
+        </td>
+        <td onclick="addToBetList(21);" class="red">
+            21
+        </td>
+        <td onclick="addToBetList(24);" class="black">
+            24
+        </td>
+        <td onclick="addToBetList(27);" class="red">
+            27
+        </td>
+        <td onclick="addToBetList(30);" class="red">
+            30
+        </td>
+        <td onclick="addToBetList(33);" class="black">
+            33
+        </td>
+        <td onclick="addToBetList(36);" class="red">
+            36
+        </td>
+        <td onclick="addToBetList(37);" class="white">
+            2 to 1
+        </td>
+    </tr>
+    <tr>
+        <td onclick="addToBetList(2);" class="black">
+            2
+        </td>
+        <td onclick="addToBetList(5);" class="red">
+            5
+        </td>
+        <td onclick="addToBetList(8);" class="black">
+            8
+        </td>
+        <td onclick="addToBetList(11);" class="black">
+            11
+        </td>
+        <td onclick="addToBetList(14);" class="red">
+            14
+        </td>
+        <td onclick="addToBetList(17);" class="black">
+            17
+        </td>
+        <td onclick="addToBetList(20);" class="black">
+            20
+        </td>
+        <td onclick="addToBetList(23);" class="red">
+            23
+        </td>
+        <td onclick="addToBetList(26);" class="black">
+            26
+        </td>
+        <td onclick="addToBetList(29);" class="black">
+            29
+        </td>
+        <td onclick="addToBetList(32);" class="red">
+            32
+        </td>
+        <td onclick="addToBetList(35);" class="black">
+            35
+        </td>
+        <td onclick="addToBetList(38);" class="white">
+            2 to 1
+        </td>
+    </tr>
+    <tr>
+        <td onclick="addToBetList(1);" class="red">
+            1
+        </td>
+        <td onclick="addToBetList(4);" class="black">
+            4
+        </td>
+        <td onclick="addToBetList(7);" class="red">
+            7
+        </td>
+        <td onclick="addToBetList(10);" class="black">
+            10
+        </td>
+        <td onclick="addToBetList(13);" class="black">
+            13
+        </td>
+        <td onclick="addToBetList(16);" class="red">
+            16
+        </td>
+        <td onclick="addToBetList(19);" class="red">
+            19
+        </td>
+        <td onclick="addToBetList(22);" class="black">
+            22
+        </td>
+        <td onclick="addToBetList(25);" class="red">
+            25
+        </td>
+        <td onclick="addToBetList(28);" class="black">
+            28
+        </td>
+        <td onclick="addToBetList(31);" class="black">
+            31
+        </td>
+        <td onclick="addToBetList(34);" class="red">
+            34
+        </td>
+        <td onclick="addToBetList(39);" class="white">
+            2 to 1
+        </td>
+    </tr>
+</table>
+InputNumber<input id="betLocation" />
+<button id="confirmButton">Confirm</button>
