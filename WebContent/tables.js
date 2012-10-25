@@ -55,11 +55,15 @@ function getTableInfo(id)
         var bets = data.bets;
         $.each(bets, function (key, bets)
         {
-            var username = bets['username'];
+            var username = bets['player']['username'];
 
-            
-            }
-         
+            var betLocation = bets['betLocation'];
+            var betAmmount = bets['betAmmount'];
+
+            var code = "<li>" + username + "</li>";
+            code += "<ul>";
+            code += "<li>on: " + betLocation + "with ammount: " + betAmmount  + "</li>";
+
             $('#playerList').append(code);
         });
     });

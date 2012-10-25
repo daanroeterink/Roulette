@@ -1,15 +1,14 @@
 ﻿function addToBetList(number)
 {
-    var currentBets = $("#betLocation").val();
-    $("#betLocation").val(currentBets + number + ",");
+    $("#betLocation").val(number);
 }
 
 
 function bet(ammount, location)
 {
     var bet = new Object();
-    bet['betAmmount'] = 1;
-    bet['betLocation'] = 3;
+    bet['betAmmount'] = ammount;
+    bet['betLocation'] = parseInt(location);
 
     var jsonString = JSON.stringify(bet);
     $.ajax({
@@ -20,7 +19,7 @@ function bet(ammount, location)
         data: jsonString,
         success: function (result)
         {
-            alert(result.status);
+            alert("bet");
         },
         error: function (result, ajaxOptions, thrownError)
         {

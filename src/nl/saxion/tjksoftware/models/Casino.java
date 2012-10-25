@@ -127,9 +127,12 @@ public class Casino
 	{
 		for (Player player : players)
 		{
-			if (player.getAccessToken().equals(accessToken))
+			if (player.getAccessToken() != null)
 			{
-				return player;
+				if (player.getAccessToken().equals(accessToken))
+				{
+					return player;
+				}
 			}
 		}
 		throw new WebApplicationException(Status.NOT_FOUND);

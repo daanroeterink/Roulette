@@ -124,8 +124,9 @@
         </td>
     </tr>
 </table>
-InputNumber<input id="betLocation" />
-<button id="confirmButton" onclick="bet(3,4);">Confirm</button>
+InputNumber<input id="betLocation" /></br>
+Ammount<input id="betAmmount" />
+<button id="confirmButton" onclick="bet($('#betAmmount').val(),$('betLocation').val());">Confirm</button>
 </div>
 <div>
 <ul id="playerList"></ul>
