@@ -90,7 +90,7 @@ public class Table
 		int t = 0;
 		for (Player p : players)
 		{
-			if (p.equals(player))
+			if (p.getID() == player.getID())
 			{
 				players.remove(t);
 			}
