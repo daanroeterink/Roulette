@@ -143,4 +143,12 @@ public class Casino
 				return true;
 		return false;
 	}
+
+	public void removePlayerFromTables(Player player)
+	{
+		for (Table table : tables)
+		{
+			table.removePlayer(player);
+		}
+	}
 }
