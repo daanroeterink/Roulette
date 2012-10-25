@@ -45,6 +45,7 @@ public class Casino
 		tables.get(0).addPlayer(player3);
 		tables.get(0).getPlayers().get(0).setMoney(5000);
 		tables.get(0).placeBet(tables.get(0).getPlayers().get(0), 1000, BetLocation.black);
+		tables.get(0).placeBet(tables.get(0).getPlayers().get(0), 1000, BetLocation.eleven);
 	}
 
 	public List<Table> getTables()

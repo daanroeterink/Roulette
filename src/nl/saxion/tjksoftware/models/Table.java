@@ -22,7 +22,7 @@ public class Table
 
 	private int ID;
 
-	private int winningNumber;
+	private BetLocation winningNumber;
 
 	private boolean blockTable;
 
@@ -146,7 +146,7 @@ public class Table
 		private void calculateNextWinningNumber()
 		{
 			Random r = new Random();
-			winningNumber = r.nextInt(36);
+			winningNumber = BetLocation.values()[r.nextInt(36)];
 			Log.I(logPrefix + "Next winning number: " + winningNumber);
 		}
 
@@ -154,7 +154,23 @@ public class Table
 		{
 			if (players.size() > 0)
 			{
-				Log.I(logPrefix + "Calculating winners!");
+				if (bets.size() > 0)
+				{
+					Log.I(logPrefix + "Calculating winners!");
+					for (Bet bet : bets)
+					{
+						if (bet != null)
+						{
+							winningNumber = BetLocation.eleven;
+							Log.D(bet.getBetLocation().toString());
+							if (bet.getBetLocation().equals(winningNumber))
+							{
+								Log.D("TEST");
+							}
+						}
+					}
+				}
+				Log.I(logPrefix + "There were no bets placed");
 			}
 		}
 	}
