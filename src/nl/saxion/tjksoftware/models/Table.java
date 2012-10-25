@@ -1,6 +1,7 @@
 package nl.saxion.tjksoftware.models;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Timer;
@@ -102,14 +103,20 @@ public class Table
 
 	public void removePlayer(Player player)
 	{
-		int t = 0;
-		for (Player p : players)
+		if (player.getAccessToken() != null)
 		{
-			if (p.getUsername().equals(player.getUsername()))
+			Iterator<Player> i = players.iterator();
+			while (i.hasNext())
 			{
-				// players.remove(t);
+				Player p = i.next();
+				if (p.getAccessToken() != null)
+				{
+					if (p.getAccessToken().equals(player.getAccessToken()))
+					{
+						i.remove();
+					}
+				}
 			}
-			t++;
 		}
 	}
 
