@@ -105,9 +105,9 @@ public class Table
 		int t = 0;
 		for (Player p : players)
 		{
-			if (p.getID() == player.getID())
+			if (p.getUsername().equals(player.getUsername()))
 			{
-				players.remove(t);
+				// players.remove(t);
 			}
 			t++;
 		}
