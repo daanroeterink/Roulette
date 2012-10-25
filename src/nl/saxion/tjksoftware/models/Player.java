@@ -48,6 +48,11 @@ public class Player
 		this.money = money;
 	}
 
+	public void addMoney(double money)
+	{
+		this.money = this.money + money;
+	}
+
 	public int getID()
 	{
 		return ID;

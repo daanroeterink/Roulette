@@ -152,6 +152,7 @@ public class Table
 
 		private void calculateWinners()
 		{
+			// TODO:Calculate black/red
 			if (players.size() > 0)
 			{
 				if (bets.size() > 0)
@@ -161,16 +162,61 @@ public class Table
 					{
 						if (bet != null)
 						{
-							winningNumber = BetLocation.eleven;
-							Log.D(bet.getBetLocation().toString());
+							// Straight-up bet
 							if (bet.getBetLocation().equals(winningNumber))
 							{
-								Log.D("TEST");
+								double amount = bet.getBetAmmount() * 36;
+
+								Log.I(logPrefix + "WON [Straight-Up] [playerid:" +
+									bet.getPlayer().getID() +
+									"] amount: " + amount
+									);
+								bet.getPlayer().addMoney(amount);
 							}
+
+							// Check black
+							if (bet.getBetLocation().equals(BetLocation.black))
+							{
+								for (int i : Bet.BlACK)
+								{
+									if (winningNumber.equals(BetLocation.values()[i]))
+									{
+										double amount = bet.getBetAmmount() * 2;
+
+										Log.I(logPrefix + "WON [BLACK] [playerid:" +
+											bet.getPlayer().getID() +
+											"] amount: " + amount
+											);
+										bet.getPlayer().addMoney(amount);
+									}
+								}
+							}
+
+							// Check red
+							if (bet.getBetLocation().equals(BetLocation.red))
+							{
+								for (int i : Bet.RED)
+								{
+									if (winningNumber.equals(BetLocation.values()[i]))
+									{
+										double amount = bet.getBetAmmount() * 2;
+
+										Log.I(logPrefix + "WON [RED] [playerid:" +
+											bet.getPlayer().getID() +
+											"] amount: " + amount
+											);
+										bet.getPlayer().addMoney(amount);
+									}
+								}
+							}
+
 						}
 					}
 				}
-				Log.I(logPrefix + "There were no bets placed");
+				else
+				{
+					Log.I(logPrefix + "There were no bets placed");
+				}
 			}
 		}
 	}
