@@ -23,9 +23,11 @@ public class Table
 
 	private int ID;
 
-	private BetLocation winningNumber;
+	private int currentRound = 0;
 
-	private boolean blockTable;
+	private List<String> lastWinners = new ArrayList<String>();
+
+	private BetLocation winningNumber;
 
 	private String logPrefix;
 
@@ -83,6 +85,16 @@ public class Table
 	public void setID(int iD)
 	{
 		ID = iD;
+	}
+
+	public int getCurrentRound()
+	{
+		return currentRound;
+	}
+
+	public List<String> getLastWinners()
+	{
+		return lastWinners;
 	}
 
 	public boolean addPlayer(Player newPlayer)
@@ -151,6 +163,8 @@ public class Table
 
 		public void run()
 		{
+			lastWinners.clear();
+			currentRound++;
 			calculateWinners();
 			calculateNextWinningNumber();
 			clearBets();
@@ -189,6 +203,7 @@ public class Table
 									"] amount: " + amount
 									);
 								bet.getPlayer().addMoney(amount);
+								lastWinners.add(bet.getPlayer().getUsername());
 							}
 
 							// Check black
@@ -205,6 +220,7 @@ public class Table
 											"] amount: " + amount
 											);
 										bet.getPlayer().addMoney(amount);
+										lastWinners.add(bet.getPlayer().getUsername());
 									}
 								}
 							}
@@ -223,6 +239,7 @@ public class Table
 											"] amount: " + amount
 											);
 										bet.getPlayer().addMoney(amount);
+										lastWinners.add(bet.getPlayer().getUsername());
 									}
 								}
 							}
