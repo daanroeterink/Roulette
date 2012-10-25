@@ -8,6 +8,8 @@
 	<script src="jquery.mobile-1.2.0.min.js"></script>
 	
 	<script>
+	var tableRefreshTimer;
+	
 	    $(document).ready(function () {
 	        if (localStorage.getItem('accessToken') != null) {
 	            loadTables();
@@ -19,6 +21,9 @@
 	                        var id = u.hash.replace(/.*id=/, "");
 	                        joinTable(id);
 	                        refreshTableInformation(id);
+	                        clearInterval(tableRefreshTimer);
+	            			var page = $('#table');
+	            			$.mobile.changePage(page);
 	                        timer(id);
 	                        e.preventDefault();
 	                    }
@@ -120,7 +125,7 @@
 	
 	function timer(id)
 	{
-	setInterval(function() {refreshTableInformation(id)}, 1000);
+		tableRefreshTimer = setInterval(function() {refreshTableInformation(id)}, 1000);
 	}
 	
 	function refreshTableInformation(id) {
@@ -137,8 +142,6 @@
 				});
 				
 				
-			var page = $('#table');
-			$.mobile.changePage(page);
 			$('#playerList').listview('refresh');
 		});
 	}
