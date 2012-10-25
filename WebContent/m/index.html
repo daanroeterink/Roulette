@@ -9,7 +9,7 @@
 	
 	<script>
 	    $(document).ready(function () {
-	        if (localStorage.getItem('AccessToken') != null) {
+	        if (localStorage.getItem('accessToken') != null) {
 	            loadTables();
 
 	            $(document).bind("pagebeforechange", function (e, data) {
@@ -94,7 +94,7 @@
                 alert("success");
                 localStorage.setItem('Username', result.username);
                 localStorage.setItem('Password', result.password);
-                localStorage.setItem('AccessToken', result.accessToken);
+                localStorage.setItem('accessToken', result.accessToken);
         		window.location.href = "#overview";
             },
             error: function (result, ajaxOptions, thrownError) {
@@ -107,7 +107,7 @@
 
 	function joinTable(id) {
 	    var jsonObject = new Object();
-	    jsonObject.accessToken = localStorage.getItem('AccessToken');
+	    jsonObject.accessToken = localStorage.getItem('accessToken');
 	    var jsonString = JSON.stringify(jsonObject);
 
 	    $.ajax({
@@ -137,6 +137,36 @@
 			var page = $('#table');
 			$.mobile.changePage(page);
 		});
+	}
+	
+	function bet()
+	{	
+
+		var amount = $('#amount').val();
+        var location = parseInt($('#location').val());
+		
+	    var bet = new Object();
+	    bet['betAmmount'] = amount;
+	    bet['betLocation'] = location;
+	    
+	    
+	    var jsonString = JSON.stringify(bet);
+	    $.ajax({
+	        type: 'POST',
+	        url: '../api/table/1/player/' + localStorage.getItem('accessToken'),
+	        dataType: 'json',
+	        contentType: 'application/json; charset=utf-8',
+	        data: jsonString,
+	        success: function (result)
+	        {
+	            alert(result.status);
+	        },
+	        error: function (result, ajaxOptions, thrownError)
+	        {
+	            alert("Errormessage: " + result.status);
+	            alert(thrownError);
+	        }
+	    });
 	}
 	</script>
 </head> 
@@ -180,13 +210,13 @@
 		<label for="idPlayers">Players</label>
 		<ul id="playerList" data-role="listview" data-inset="true"></ul>	
 		
-		<label for="idNumber">Number</label>
-		<input type="text" id="number"/>
+		<label for="idLocation">Location</label>
+		<input type="text" id="location"/>
 		
 		<label for="idAmount">Amount</label>
 		<input type="text" id="amount"/>
 		
-		<a data-role="button" data-icon="check" onClick="placeBet();">Place bet</a>
+		<a data-role="button" data-icon="check" onClick="bet();">Place bet</a>
 	</div>
 </div>
 

@@ -27,6 +27,8 @@ public class Table
 
 	private boolean blockTable;
 
+	private String logPrefix;
+
 	public Table(int ID)
 	{
 		players = new ArrayList<Player>();
@@ -125,7 +127,12 @@ public class Table
 		if (players != null && betLocation != null && player != null)
 		{
 			Bet bet = player.createBet(ammount, betLocation);
-			bets.add(bet);
+			if (bet != null)
+			{
+				bets.add(bet);
+				Log.I(logPrefix + "BET amount: " + ammount + " on: " + betLocation.toString() + " by: "
+					+ player.getUsername());
+			}
 		}
 		return false;
 	}
@@ -134,8 +141,6 @@ public class Table
 	{
 		/** Het id van de table */
 		private int Id;
-
-		private String logPrefix;
 
 		public TableThread(int Id)
 		{
@@ -179,8 +184,8 @@ public class Table
 							{
 								double amount = bet.getBetAmmount() * 36;
 
-								Log.I(logPrefix + "WON [Straight-Up] [playerid:" +
-									bet.getPlayer().getID() +
+								Log.I(logPrefix + "WON [Straight-Up] [player:" +
+									bet.getPlayer().getUsername() +
 									"] amount: " + amount
 									);
 								bet.getPlayer().addMoney(amount);
