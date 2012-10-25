@@ -59,6 +59,7 @@ public class TableResource
 			if (table.getPlayers().size() < 10)
 			{
 				table.addPlayer(Casino.getInstance().getPlayerWithAccessToken(player.getAccessToken()));
+				String t = "";
 			}
 			else
 			{

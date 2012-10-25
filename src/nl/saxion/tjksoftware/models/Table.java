@@ -43,7 +43,7 @@ public class Table
 	{
 		Timer timer = new Timer("Table: " + ID);
 		TableThread t = new TableThread(ID);
-		timer.schedule(t, 0, 10000);
+		timer.schedule(t, 0, 60000);
 	}
 
 	public Player getPlayer(int id)
@@ -105,9 +105,9 @@ public class Table
 		int t = 0;
 		for (Player p : players)
 		{
-			if (p.getID() == player.getID())
+			if (p.getUsername().equals(player.getUsername()))
 			{
-				players.remove(t);
+				// players.remove(t);
 			}
 			t++;
 		}
@@ -141,6 +141,7 @@ public class Table
 		{
 			calculateWinners();
 			calculateNextWinningNumber();
+			clearBets();
 		}
 
 		private void calculateNextWinningNumber()
@@ -148,6 +149,11 @@ public class Table
 			Random r = new Random();
 			winningNumber = BetLocation.values()[r.nextInt(36)];
 			Log.I(logPrefix + "Next winning number: " + winningNumber);
+		}
+
+		private void clearBets()
+		{
+			bets.clear();
 		}
 
 		private void calculateWinners()
@@ -161,16 +167,61 @@ public class Table
 					{
 						if (bet != null)
 						{
-							winningNumber = BetLocation.eleven;
-							Log.D(bet.getBetLocation().toString());
+							// Straight-up bet
 							if (bet.getBetLocation().equals(winningNumber))
 							{
-								Log.D("TEST");
+								double amount = bet.getBetAmmount() * 36;
+
+								Log.I(logPrefix + "WON [Straight-Up] [playerid:" +
+									bet.getPlayer().getID() +
+									"] amount: " + amount
+									);
+								bet.getPlayer().addMoney(amount);
 							}
+
+							// Check black
+							if (bet.getBetLocation().equals(BetLocation.black))
+							{
+								for (int i : Bet.BlACK)
+								{
+									if (winningNumber.equals(BetLocation.values()[i]))
+									{
+										double amount = bet.getBetAmmount() * 2;
+
+										Log.I(logPrefix + "WON [BLACK] [playerid:" +
+											bet.getPlayer().getID() +
+											"] amount: " + amount
+											);
+										bet.getPlayer().addMoney(amount);
+									}
+								}
+							}
+
+							// Check red
+							if (bet.getBetLocation().equals(BetLocation.red))
+							{
+								for (int i : Bet.RED)
+								{
+									if (winningNumber.equals(BetLocation.values()[i]))
+									{
+										double amount = bet.getBetAmmount() * 2;
+
+										Log.I(logPrefix + "WON [RED] [playerid:" +
+											bet.getPlayer().getID() +
+											"] amount: " + amount
+											);
+										bet.getPlayer().addMoney(amount);
+									}
+								}
+							}
+
 						}
 					}
 				}
-				Log.I(logPrefix + "There were no bets placed");
+				else
+				{
+					Log.I(logPrefix + "There were no bets placed");
+				}
 			}
 		}
 	}

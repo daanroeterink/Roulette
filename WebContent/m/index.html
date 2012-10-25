@@ -46,6 +46,34 @@
 		});
 	}
 	
+	function register()
+    {
+		var uName = $('#username').val();
+        var Password = $('#password').val();
+
+        var player = new Object();
+        player['username'] = uName;
+        player['password'] = Password;
+
+        var jsonString = JSON.stringify(player);
+        $.ajax({
+            type: 'POST',
+            url: '../api/players',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: jsonString,
+            success: function (result)
+            {
+                login(username, password);
+            },
+            error: function (result, ajaxOptions, thrownError)
+            {
+                alert("Errormessage: " + result.status);
+                alert(thrownError);
+            }
+        });
+    }
+	
 	function login() {
 		var uName = $('#username').val();
         var Password = $('#password').val();
@@ -80,7 +108,7 @@
 	function joinTable(id) {
 	    var jsonObject = new Object();
 	    jsonObject.accessToken = localStorage.getItem('AccessToken');
-
+		alert(localStorage.getItem('AccessToken'));
 	    var jsonString = JSON.stringify(jsonObject);
 
 	    $.ajax({
@@ -129,8 +157,10 @@
 		<input type="text" id="password"/>
 		
 		<a data-role="button" data-icon="check" onClick="login();">Login</a>
+		<button id="registerButton" data-icon="check" onClick="register();">Register</button>
 	</div>
 </div>
+
 
 <div data-role="page" id="overview">
 	<div data-role="header">
