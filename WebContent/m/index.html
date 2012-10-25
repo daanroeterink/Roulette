@@ -8,8 +8,10 @@
 	<script src="jquery.mobile-1.2.0.min.js"></script>
 	
 	<script>
+	var tableRefreshTimer;
+	
 	    $(document).ready(function () {
-	        if (localStorage.getItem('AccessToken') != null) {
+	        if (localStorage.getItem('accessToken') != null) {
 	            loadTables();
 
 	            $(document).bind("pagebeforechange", function (e, data) {
@@ -19,8 +21,10 @@
 	                        var id = u.hash.replace(/.*id=/, "");
 	                        joinTable(id);
 	                        refreshTableInformation(id);
-
-	                        //Prevent the default action
+	                        clearInterval(tableRefreshTimer);
+	            			var page = $('#table');
+	            			$.mobile.changePage(page);
+	                        timer(id);
 	                        e.preventDefault();
 	                    }
 	                }
@@ -94,7 +98,7 @@
                 alert("success");
                 localStorage.setItem('Username', result.username);
                 localStorage.setItem('Password', result.password);
-                localStorage.setItem('AccessToken', result.accessToken);
+                localStorage.setItem('accessToken', result.accessToken);
         		window.location.href = "#overview";
             },
             error: function (result, ajaxOptions, thrownError) {
@@ -107,7 +111,7 @@
 
 	function joinTable(id) {
 	    var jsonObject = new Object();
-	    jsonObject.accessToken = localStorage.getItem('AccessToken');
+	    jsonObject.accessToken = localStorage.getItem('accessToken');
 	    var jsonString = JSON.stringify(jsonObject);
 
 	    $.ajax({
@@ -117,6 +121,11 @@
 	        contentType: 'application/json; charset=utf-8',
 	        data: jsonString
 	    });
+	}
+	
+	function timer(id)
+	{
+		tableRefreshTimer = setInterval(function() {refreshTableInformation(id)}, 1000);
 	}
 	
 	function refreshTableInformation(id) {
@@ -131,12 +140,60 @@
 					var code = "<li>" + username + "</li>";
 					$('#playerList').append(code);
 				});
-				//$("#playerList").listview('refresh');
 				
 				
-			var page = $('#table');
-			$.mobile.changePage(page);
+			$('#playerList').listview('refresh');
 		});
+	}
+	
+	function addMoney()
+    {
+        $.ajax({
+            type: 'PUT',
+            url: '../api/player/' + localStorage.getItem('accessToken'),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(1000),
+            success: function (result)
+            {
+                alert("1000 coins has been added to your account!");
+            },
+            error: function (result, ajaxOptions, thrownError)
+            {
+                alert("Errormessage: " + result.status);
+                alert(thrownError);
+            }
+        });
+    }
+	
+	function bet()
+	{	
+
+		var amount = $('#amount').val();
+        var location = parseInt($('#location').val());
+		
+	    var bet = new Object();
+	    bet['betAmmount'] = amount;
+	    bet['betLocation'] = location;
+	    
+	    
+	    var jsonString = JSON.stringify(bet);
+	    $.ajax({
+	        type: 'POST',
+	        url: '../api/table/1/player/' + localStorage.getItem('accessToken'),
+	        dataType: 'json',
+	        contentType: 'application/json; charset=utf-8',
+	        data: jsonString,
+	        success: function (result)
+	        {
+	            alert(result.status);
+	        },
+	        error: function (result, ajaxOptions, thrownError)
+	        {
+	            alert("Errormessage: " + result.status);
+	            alert(thrownError);
+	        }
+	    });
 	}
 	</script>
 </head> 
@@ -168,6 +225,7 @@
 
 	<div data-role="content">	
 		<ul id="tablesList" data-role="listview" data-inset="true" data-filter="true"></ul>	
+	<a data-role="button" data-icon="check" onClick="addMoney();">Free Money - click here</a>
 	</div>
 </div>
 
@@ -179,11 +237,14 @@
 	<div data-role="content">	
 		<label for="idPlayers">Players</label>
 		<ul id="playerList" data-role="listview" data-inset="true"></ul>	
-	
+		
+		<label for="idLocation">Location</label>
+		<input type="text" id="location"/>
+		
 		<label for="idAmount">Amount</label>
 		<input type="text" id="amount"/>
 		
-		<a data-role="button" data-icon="check" onClick="placeBet();">Place bet</a>
+		<a data-role="button" data-icon="check" onClick="bet();">Place bet</a>
 	</div>
 </div>
 

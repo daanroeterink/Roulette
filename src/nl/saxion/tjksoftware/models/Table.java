@@ -23,9 +23,13 @@ public class Table
 
 	private int ID;
 
+	private int currentRound = 0;
+
+	private List<String> lastWinners = new ArrayList<String>();
+
 	private BetLocation winningNumber;
 
-	private boolean blockTable;
+	private String logPrefix;
 
 	public Table(int ID)
 	{
@@ -83,6 +87,16 @@ public class Table
 		ID = iD;
 	}
 
+	public int getCurrentRound()
+	{
+		return currentRound;
+	}
+
+	public List<String> getLastWinners()
+	{
+		return lastWinners;
+	}
+
 	public boolean addPlayer(Player newPlayer)
 	{
 
@@ -125,7 +139,12 @@ public class Table
 		if (players != null && betLocation != null && player != null)
 		{
 			Bet bet = player.createBet(ammount, betLocation);
-			bets.add(bet);
+			if (bet != null)
+			{
+				bets.add(bet);
+				Log.I(logPrefix + "BET amount: " + ammount + " on: " + betLocation.toString() + " by: "
+					+ player.getUsername());
+			}
 		}
 		return false;
 	}
@@ -134,8 +153,6 @@ public class Table
 	{
 		/** Het id van de table */
 		private int Id;
-
-		private String logPrefix;
 
 		public TableThread(int Id)
 		{
@@ -146,6 +163,8 @@ public class Table
 
 		public void run()
 		{
+			lastWinners.clear();
+			currentRound++;
 			calculateWinners();
 			calculateNextWinningNumber();
 			clearBets();
@@ -179,11 +198,12 @@ public class Table
 							{
 								double amount = bet.getBetAmmount() * 36;
 
-								Log.I(logPrefix + "WON [Straight-Up] [playerid:" +
-									bet.getPlayer().getID() +
+								Log.I(logPrefix + "WON [Straight-Up] [player:" +
+									bet.getPlayer().getUsername() +
 									"] amount: " + amount
 									);
 								bet.getPlayer().addMoney(amount);
+								lastWinners.add(bet.getPlayer().getUsername());
 							}
 
 							// Check black
@@ -200,6 +220,7 @@ public class Table
 											"] amount: " + amount
 											);
 										bet.getPlayer().addMoney(amount);
+										lastWinners.add(bet.getPlayer().getUsername());
 									}
 								}
 							}
@@ -218,6 +239,7 @@ public class Table
 											"] amount: " + amount
 											);
 										bet.getPlayer().addMoney(amount);
+										lastWinners.add(bet.getPlayer().getUsername());
 									}
 								}
 							}
