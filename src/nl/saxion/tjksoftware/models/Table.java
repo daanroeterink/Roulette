@@ -48,7 +48,7 @@ public class Table
 	{
 		Timer timer = new Timer("Table: " + ID);
 		TableThread t = new TableThread(ID);
-		timer.schedule(t, 0, 60000);
+		timer.schedule(t, 0, 1200000);
 	}
 
 	public Player getPlayer(int id)
@@ -164,10 +164,10 @@ public class Table
 		public void run()
 		{
 			lastWinners.clear();
-			currentRound++;
 			calculateWinners();
 			calculateNextWinningNumber();
 			clearBets();
+			currentRound++;
 		}
 
 		private void calculateNextWinningNumber()
