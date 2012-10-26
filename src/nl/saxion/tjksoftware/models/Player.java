@@ -86,7 +86,7 @@ public class Player
 
 	public Bet createBet(int ammount, BetLocation betlocation)
 	{
-		if (betlocation != null && (money - ammount) > 0)
+		if (betlocation != null && (money - ammount) >= 0)
 		{
 			Bet bet = new Bet(this, ammount, betlocation);
 			bets.add(bet);

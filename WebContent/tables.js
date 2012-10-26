@@ -36,6 +36,7 @@ function joinTable(id)
             localStorage.setItem("tableID", id);
             downloadBettingTable();
             getTableInfo(id);
+            timer();
         },
         error: function (result, ajaxOptions, thrownError)
         {

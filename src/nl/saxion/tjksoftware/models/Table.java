@@ -12,7 +12,6 @@ import javax.ws.rs.core.Response.Status;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import nl.saxion.tjksoftware.models.Bet.BetLocation;
-import nl.saxion.tjksoftware.resources.TafelWebSocket;
 
 @XmlRootElement
 public class Table
