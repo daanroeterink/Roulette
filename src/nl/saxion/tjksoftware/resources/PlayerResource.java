@@ -26,9 +26,12 @@ public class PlayerResource
 		{
 			for (Player player : Casino.getInstance().getPlayers())
 			{
-				if (player.getAccessToken().equals(accessToken))
+				if (player.getAccessToken() != null)
 				{
-					return player;
+					if (player.getAccessToken().equals(accessToken))
+					{
+						return player;
+					}
 				}
 			}
 		}

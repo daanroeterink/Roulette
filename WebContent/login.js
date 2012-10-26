@@ -1,5 +1,7 @@
 ﻿function logout()
 {
+    clearInterval(moneyRefreshTimer);
+    timerMoney();
     localStorage.clear();
     $('#loginScreen').html("Username<input type=\"text\" id=\"username\" />Password<input type=\"text\" id=\"password\" /><button id=\"loginButton\">Login</button><button id=\"registerButton\">Register</button>");
     window.location.reload();
@@ -24,7 +26,8 @@ function login(username, password)
             localStorage.setItem('Username', result.username);
             localStorage.setItem('Password', result.password);
             localStorage.setItem('accessToken', result.accessToken);
-            $('#loginScreen').html("<button onclick=\"logout();\" id=\"logoutButton\">Logout</button><button onclick=\"addMoney();\">Free Money</button>");
+            $('#loginScreen').html("Money:<input id=\"money\"\><br\><button onclick=\"logout();\" id=\"logoutButton\">Logout</button><button onclick=\"addMoney();\">Free Money</button>");
+            timerMoney();
             loadTables();
         },
         error: function (result, ajaxOptions, thrownError)

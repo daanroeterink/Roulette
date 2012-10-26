@@ -90,6 +90,7 @@ public class Player
 		{
 			Bet bet = new Bet(this, ammount, betlocation);
 			bets.add(bet);
+			money = money - ammount;
 			return bet;
 		}
 		return null;

@@ -44,6 +44,7 @@
                     alert("Please login first");
                 } else
                 {
+                    $('#bettingTable').empty();
                     loadTables();
                 }
             });
@@ -61,7 +62,6 @@
     <menu>
         <ul>
             <li><a id="chooseTable" href="#">Choose table</a></li>
-            <li>Manage account</li>
         </ul>
     </menu>
     <div id="main">
@@ -69,8 +69,6 @@
         </div>
         <div id="bettingTable">
         </div>
-    </div>
-    <div id="console">
     </div>
 </body>
 </html>

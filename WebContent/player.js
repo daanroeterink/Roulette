@@ -17,3 +17,15 @@
         }
     });
 }
+
+function getMoney()
+{
+    $.getJSON('api/player/' + localStorage.getItem('accessToken'), function (data)
+    {
+        var money = data.money;
+        if (money != null)
+        {
+            $('#money').val(money);
+        }
+    });
+}

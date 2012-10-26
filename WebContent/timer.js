@@ -1,4 +1,5 @@
 ﻿var tableRefreshTimer;
+var moneyRefreshTimer;
 
 $(document).bind("pagebeforechange", function (e, data)
 {
@@ -9,4 +10,9 @@ $(document).bind("pagebeforechange", function (e, data)
 function timer()
 {
     tableRefreshTimer = setInterval(function () { getTableInfo(localStorage.getItem('tableID')) }, 1000);
+}
+
+function timerMoney()
+{
+    tableRefreshTimer = setInterval(function () { getMoney() }, 1000);
 }
