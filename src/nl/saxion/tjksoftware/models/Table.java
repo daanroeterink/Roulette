@@ -166,8 +166,6 @@ public class Table
 		{
 			lastWinners.clear();
 			calculateWinners();
-			Log.I("Webscokets");
-			TafelWebSocket.getInstance().broadcast("" + Id + "," + winningNumber);
 			calculateNextWinningNumber();
 			clearBets();
 			currentRound++;
