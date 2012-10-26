@@ -29,6 +29,10 @@ public class Casino
 
 	public Casino()
 	{
+		Log.I("***********************************************");
+		Log.I("***********Starting roulette Server************");
+		Log.I("***********************************************");
+
 		tables = new ArrayList<Table>();
 		players = new ArrayList<Player>();
 		Log.I("Creating tables 1-6");
