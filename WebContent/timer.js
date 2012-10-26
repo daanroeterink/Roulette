@@ -14,5 +14,5 @@ function timer()
 
 function timerMoney()
 {
-    tableRefreshTimer = setInterval(function () { getMoney() }, 1000);
+    tableRefreshTimer = setInterval(function () { getMoney() }, 5000);
 }
