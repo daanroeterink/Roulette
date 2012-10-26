@@ -25,6 +25,7 @@ public class Player
 	public Player()
 	{
 		bets = new ArrayList<Bet>();
+		Log.I("New players has been created");
 	}
 
 	public String getAccessToken()

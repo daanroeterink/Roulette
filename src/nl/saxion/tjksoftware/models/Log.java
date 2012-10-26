@@ -21,6 +21,17 @@ public class Log
 	}
 
 	/**
+	 * Console log message with WARN
+	 * 
+	 * @param message
+	 */
+	public static void W(String message)
+	{
+		GregorianCalendar g = new GregorianCalendar();
+		System.out.println("[" + g.getTime() + "] WARN " + message);
+	}
+
+	/**
 	 * Console log message with DEBUG
 	 * 
 	 * @param message

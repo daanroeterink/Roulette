@@ -31,9 +31,14 @@ public class Casino
 	{
 		tables = new ArrayList<Table>();
 		players = new ArrayList<Player>();
+		Log.I("Creating tables 1-6");
 		tables.add(new Table(tables.size() + 1));
 		tables.add(new Table(tables.size() + 1));
 		tables.add(new Table(tables.size() + 1));
+		tables.add(new Table(tables.size() + 1));
+		tables.add(new Table(tables.size() + 1));
+		tables.add(new Table(tables.size() + 1));
+		Log.W("Creating players for testing purposes - DELETE ON RELEASE");
 		Player player1 = new Player();
 		player1.setUsername("Testspeler 1");
 		tables.get(0).addPlayer(player1);

@@ -105,6 +105,7 @@ public class Table
 			if (players.size() < 10)
 			{
 				players.add(newPlayer);
+				Log.I(newPlayer.getUsername() + " has joined table " + ID);
 				return true;
 			}
 			else
