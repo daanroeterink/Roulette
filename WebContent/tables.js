@@ -35,6 +35,7 @@ function joinTable(id)
         {
             localStorage.setItem("tableID", id);
             downloadBettingTable();
+            drawRouletteWheel();
             getTableInfo(id);
             timer();
         },
@@ -65,22 +66,32 @@ function getTableInfo(id)
 
             var code = "<li>" + username + "</li>";
             code += "<ul>";
-            code += "<li>on: " + betLocation + "with ammount: " + betAmmount  + "</li>";
+            code += "<li>on: " + betLocation + " with ammount: " + betAmmount + "</li>";
 
             $('#playerList').append(code);
         });
 
+        var preWinningNumber = data.previousWinningNumber;
+
         if (currentRound != data.currentRound)
         {
-            for (var i = 0; i < data.lastWinners.length; i++)
+            if (preWinningNumber != null)
             {
-                if (data.lastWinners[i] == localStorage.getItem('Username'))
+                spin(parseInt(preWinningNumber));
+            }
+            if (data.lastWinners !== null)
+            {
+                for (var i = 0; i < data.lastWinners.length; i++)
                 {
-                    alert("You won this time!");
-                }
-                else
-                {
-                    alert("You lost. Next time better!");
+                    if (data.lastWinners[i] == localStorage.getItem('Username'))
+                    {
+
+                        alert("You won this time!");
+                    }
+                    else
+                    {
+                        alert("You lost. Next time better!");
+                    }
                 }
             }
         }
