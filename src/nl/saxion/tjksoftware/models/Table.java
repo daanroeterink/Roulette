@@ -12,7 +12,6 @@ import javax.ws.rs.core.Response.Status;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import nl.saxion.tjksoftware.models.Bet.BetLocation;
-import nl.saxion.tjksoftware.resources.TafelWebSocket;
 
 @XmlRootElement
 public class Table
@@ -28,6 +27,10 @@ public class Table
 	private List<String> lastWinners = new ArrayList<String>();
 
 	private BetLocation winningNumber;
+
+	private int winningNumberInt;
+
+	private int previousWinningNumberInt;
 
 	private String logPrefix;
 
@@ -95,6 +98,11 @@ public class Table
 	public List<String> getLastWinners()
 	{
 		return lastWinners;
+	}
+
+	public int getPreviousWinningNumber()
+	{
+		return previousWinningNumberInt;
 	}
 
 	public boolean addPlayer(Player newPlayer)
@@ -174,7 +182,9 @@ public class Table
 		private void calculateNextWinningNumber()
 		{
 			Random r = new Random();
-			winningNumber = BetLocation.values()[r.nextInt(36)];
+			previousWinningNumberInt = winningNumberInt;
+			winningNumberInt = r.nextInt(36);
+			winningNumber = BetLocation.values()[winningNumberInt];
 			Log.I(logPrefix + "Next winning number: " + winningNumber);
 		}
 
