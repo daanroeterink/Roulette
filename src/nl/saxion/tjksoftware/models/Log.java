@@ -3,7 +3,7 @@ package nl.saxion.tjksoftware.models;
 import java.util.GregorianCalendar;
 
 /**
- * @author Tom Kostense
+ * @author
  * 
  */
 public class Log
